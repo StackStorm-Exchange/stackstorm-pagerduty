@@ -1,4 +1,4 @@
-# PagerDuty 
+# PagerDuty
 
 This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
 
