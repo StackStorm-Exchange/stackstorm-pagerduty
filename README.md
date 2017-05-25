@@ -2,7 +2,7 @@
 
 This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
 
-1. List all the open incidents on PD for a subdomain
+1. List all the open incidents on PD (for a given api key)
 2. Send acknowledgment of any incident(s)
 3. Close and open incident(s)
 4. Launch an incident by giving its details and description
@@ -12,7 +12,6 @@ This action enables the integration of PagerDuty into StackStorm. It is capable 
 Copy the example configuration in [pagerduty.yaml.example](./pagerduty.yaml.example)
 to `/opt/stackstorm/configs/pagerduty.yaml` and edit as required.
 
-* `subdomain:` name of subdomain
 * `api_key:` API-KEY
 * `service_api:` SERVICE-API
 * `debug:` optional debug flag. Set to True for additional logging

@@ -4,8 +4,8 @@ from lib.action import PagerDutyAction
 class AckIncident(PagerDutyAction):
     def run(self, event_keys):
         """
-        Acknowledgment of a trigger, You can provide comma(,) separated keys for acknowledging more
-        events at once.
+        Acknowledgment of a trigger, You can provide comma(,) separated keys
+        for acknowledging more than one event at a time.
         """
 
         for arg in event_keys:

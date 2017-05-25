@@ -1,9 +1,4 @@
 ---
-  subdomain:
-    description: "PagerDuty subdomain"
-    type: "string"
-    secret: false
-    required: true
   api_key:
     description: "API Key"
     type: "string"

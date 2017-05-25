@@ -1,4 +1,4 @@
-import pygerduty
+import pypd
 
 from st2actions.runners.pythonrunner import Action
 
@@ -10,11 +10,9 @@ class PagerDutyAction(Action):
         self.trigger = []
 
     def _init_client(self):
-        api_key = self.config['api_key']
-        #  service_api = self.config['service_api']
-        subdomain = self.config['subdomain']
-        pager = pygerduty.PagerDuty(subdomain, api_token=api_key)
-        return pager
+        # TODO: Return pager object
+        pypd.api_key = self.config['api_key']
+        return pypd
 
     #  get all the acknowledged incidents
     def get_ack_incidents(self):
