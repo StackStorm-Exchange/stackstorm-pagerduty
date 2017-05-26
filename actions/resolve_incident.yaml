@@ -4,7 +4,9 @@ description: Resolve an incident whose key is provided
 enabled: true
 entry_point: resolve_incident.py
 parameters:
-  param_dict:
-    type: object
-    description: Dictionary containing (incident_key, email)
-
+  keys:
+    type: array
+    description: Array of incident keys
+  email:
+    type: string
+    description: Email address used to acknowledge the incident
