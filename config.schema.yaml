@@ -1,11 +1,11 @@
 ---
   api_key:
-    description: "API Key"
+    description: "PagerDuty API Key"
     type: "string"
     secret: true
     required: true
-  service_api:
-    description: "Service API"
+  service_key:
+    description: "PagerDuty Service Key"
     type: "string"
     secret: true
     required: true

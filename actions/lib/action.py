@@ -13,7 +13,7 @@ class PagerDutyAction(Action):
     def _init_client(self):
         """ init_client method, run at class creation """
         pypd.api_key = self.config['api_key']
-        pypd.service_api = self.config['service_api']
+        pypd.service_key = self.config['service_key']
         return pypd
 
     def get_ack_incidents(self):
