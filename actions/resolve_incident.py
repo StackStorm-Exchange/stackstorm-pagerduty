@@ -2,12 +2,20 @@ from lib.action import PagerDutyAction
 
 
 class ResolveIncident(PagerDutyAction):
-    def run(self, event_keys):
+    def run(self, **param_dict):
         """
-        Resolve an incident, You can provide comma(,) separated keys for resolving more events at
-        once.
+        Resolve an incident. The PagerDuty v2 API requires that an incident
+        be resolved using a valid email address. param_dict is a dictionary
+        with key = incident_key, and value = email.
         """
-        for arg in event_keys:
-            self.pager.resolve_incident(self.config['service_api'], arg)
 
-        return event_keys
+        # TODO: Do we need to be able to optionally specify the service key?
+
+        for incident_key, email in param_dict.iteritems():
+            if email is None:
+                raise ValueError("%s has empty email", incident_key)
+            else:
+                incident = self.pager.Incident.find_one(incident_key)
+                incident.resolve(from_email=email)
+
+        return param_dict.keys()

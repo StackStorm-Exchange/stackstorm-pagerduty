@@ -1,1 +1,2 @@
 pypd==0.1.0
+urllib3[secure]
