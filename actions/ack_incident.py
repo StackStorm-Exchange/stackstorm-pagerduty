@@ -15,7 +15,7 @@ class AckIncident(PagerDutyAction):
             raise ValueError("email must be specified")
 
         for key in keys:
-            query_params = { 'id': key }
+            query_params = {'id': key}
             incident = self.pager.Incident.fetch(limit=1, **query_params)
             incident.acknowledge(from_email=email)
 

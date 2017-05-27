@@ -15,7 +15,7 @@ class ResolveIncident(PagerDutyAction):
             raise ValueError("email must be specified")
 
         for key in keys:
-            query_params = { 'id': key }
+            query_params = {'id': key}
             incident = self.pager.Incident.fetch(limit=1, **query_params)
             incident.resolve(from_email=email)
 
