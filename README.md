@@ -3,13 +3,39 @@
 This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
 
 1. List all the open incidents on PD (for a given api key)
-2. Send acknowledgment of any incident(s)
-3. Close and open incident(s)
-4. Launch an incident by giving its details and description
+
+```
+st2 run pagerduty.get_open_incidents
+```
+
+2. Launch an incident by giving its details and description
+
+```
+st2 run pagerduty.launch_incident description='<incident title>'
+```
+
+3. Send acknowledgment of any incident(s)
+
+```
+st2 run pagerduty.ack_incident email='<email>' ids=<comma separated list of incident ids>
+```
+
+4. Resolve acknowledged incident(s)
+
+```
+st2 run pagerduty.resolve_incident email='<email>' ids=<comma separated list of incident ids>
+```
 
 # Configuration
 
-Copy the example configuration in [pagerduty.yaml.example](./pagerduty.yaml.example)
+To create and install the config file, you can run:
+
+```
+st2 pack config pagerduty
+```
+
+Alternatively, you can copy the example configuration in
+[pagerduty.yaml.example](./pagerduty.yaml.example)
 to `/opt/stackstorm/configs/pagerduty.yaml` and edit as required.
 
 * `api_key:` API-KEY
