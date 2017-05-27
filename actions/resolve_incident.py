@@ -12,10 +12,11 @@ class ResolveIncident(PagerDutyAction):
         # TODO: Do we need to be able to optionally specify the service key?
 
         if email is None:
-            raise ValueError("email must be specified", email)
+            raise ValueError("email must be specified")
 
         for key in keys:
-            incident = self.pager.Incident.find_one(key)
+            query_params = { 'id': key }
+            incident = self.pager.Incident.fetch(limit=1, **query_params)
             incident.resolve(from_email=email)
 
         return keys
