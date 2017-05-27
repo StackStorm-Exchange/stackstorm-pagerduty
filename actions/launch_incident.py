@@ -5,11 +5,14 @@ class LaunchIncident(PagerDutyAction):
     def run(self, description, event_type='trigger', details=None):
         """Create a trigger"""
 
-        result = self.pager.Event.create(data={
+        payload={
             'service_key': self.config['service_key'],
             'event_type': event_type,
             'description': description,
-            'details': details
-        })
+        }
+        if details is not None:
+            payload['details'] = details
+
+        result = self.pager.Event.create(data=payload)
 
         return result
