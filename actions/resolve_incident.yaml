@@ -1,12 +1,12 @@
 name: resolve_incident
 runner_type: run-python
-description: Resolve an incident whose key is provided
+description: Resolve an incident whose id is provided
 enabled: true
 entry_point: resolve_incident.py
 parameters:
-  keys:
+  ids:
     type: array
-    description: Array of incident keys
+    description: Array of incident ids
   email:
     type: string
     description: Email address used to acknowledge the incident
