@@ -5,7 +5,7 @@ class LaunchIncident(PagerDutyAction):
     def run(self, description, event_type='trigger', details=None):
         """Create a trigger"""
 
-        payload={
+        payload = {
             'service_key': self.config['service_key'],
             'event_type': event_type,
             'description': description,
