@@ -2,13 +2,21 @@ from lib.action import PagerDutyAction
 
 
 class AckIncident(PagerDutyAction):
-    def run(self, event_keys):
+    def run(self, email, ids):
         """
-        Acknowledgment of a trigger, You can provide comma(,) separated keys for acknowledging more
-        events at once.
+        Acknowledgment of a trigger. The PagerDuty v2 API requires that
+        an incident be acknowledged using a valid email address. ids is
+        an array of incident ids.
         """
 
-        for arg in event_keys:
-            self.pager.acknowledge_incident(self.config['service_api'], arg)
+        # TODO: Do we need to optionally be able to specify the service key?
 
-        return event_keys
+        if email is None:
+            raise ValueError("email must be specified")
+
+        for id in ids:
+            query_params = {'id': id}
+            incident = self.pager.Incident.fetch(limit=1, **query_params)
+            incident.acknowledge(from_email=email)
+
+        return ids

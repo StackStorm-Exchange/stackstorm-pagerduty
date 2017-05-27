@@ -2,8 +2,17 @@ from lib.action import PagerDutyAction
 
 
 class LaunchIncident(PagerDutyAction):
-    def run(self, description, details=None):
-        """lauch a trigger """
-        lst = self.pager.trigger_incident(self.config['service_api'], description=description,
-                                          details=details)
-        return lst
+    def run(self, description, event_type='trigger', details=None):
+        """Create a trigger"""
+
+        payload = {
+            'service_key': self.config['service_key'],
+            'event_type': event_type,
+            'description': description,
+        }
+        if details is not None:
+            payload['details'] = details
+
+        result = self.pager.Event.create(data=payload)
+
+        return result

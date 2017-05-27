@@ -7,7 +7,6 @@ parameters:
   details:
     type: string
     description: Details of the incident 
-    
   description:
     type: string
     description: Description of the incident
