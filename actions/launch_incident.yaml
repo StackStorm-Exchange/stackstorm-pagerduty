@@ -11,3 +11,6 @@ parameters:
     type: string
     description: Description of the incident
     required: true
+  incident_key:
+    type: string
+    description: De-duplication key

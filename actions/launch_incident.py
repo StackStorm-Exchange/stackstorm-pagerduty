@@ -2,7 +2,7 @@ from lib.action import PagerDutyAction
 
 
 class LaunchIncident(PagerDutyAction):
-    def run(self, description, event_type='trigger', details=None):
+    def run(self, description, event_type='trigger', incident_key=None, details=None):
         """Create a trigger"""
 
         payload = {

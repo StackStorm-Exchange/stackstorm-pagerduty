@@ -1,0 +1,19 @@
+---
+name: "resolve_incident"
+pack: "pagerduty"
+action_ref: "pagerduty.resolve_incident"
+description: "Resolve a PagerDuty incident"
+formats:
+  - "resolve incident ids {{ids}} with {{email}}"
+ack:
+  enabled: false
+result:
+  format: |
+    {% if execution.status == "succeeded" %}
+    Confirming the following incident(s) are resolved -
+      {% for id in execution.result.result %}
+        {{ id }}
+      {% endfor %}
+    {% else %}
+      {% if execution.result.stderr %}*Stderr:* ```{{ execution.result.stderr }}```{% endif %}
+    {% endif %}
