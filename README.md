@@ -11,19 +11,44 @@ st2 run pagerduty.get_open_incidents
 2. Launch an incident by giving its details and description
 
 ```
-st2 run pagerduty.launch_incident description='<incident title>'
+st2 run pagerduty.launch_incident from_email='<email>' title='<incident title>' [incident_key='<incident_key>']
 ```
 
 3. Send acknowledgment of any incident(s)
 
 ```
-st2 run pagerduty.ack_incident email='<email>' ids=<comma separated list of incident ids>
+st2 run pagerduty.ack_incident from_email='<email>' ids=<comma separated list of incident ids>
 ```
 
-4. Resolve acknowledged incident(s)
+4. Snooze incident(s)
 
 ```
-st2 run pagerduty.resolve_incident email='<email>' ids=<comma separated list of incident ids>
+st2 run pagerduty.snooze_incident from_email='<email>' duration=<seconds> ids=<comma separated list of incident ids>
+```
+
+5. Create note for incident(s)
+
+```
+st2 run pagerduty.create_note_incident from_email='<email'> content='<note content>' ids=<comma separated list of incident ids>
+```
+
+6. Log entries for incident(s)
+
+```
+st2 run pagerduty.log_entries_incident is_overview=<boolean> time_zone=<string> fetch_all=<boolean> \
+    include=<string>
+```
+
+7. View notes forlog_entries incident(s)
+
+```
+st2 run .view_notes_incident ids=<comma separated list of incident ids>
+```
+
+8. Resolve acknowledged incident(s)
+
+```
+st2 run pagerduty.resolve_incident from_email='<email>' ids=<comma separated list of incident ids>
 ```
 
 # Configuration

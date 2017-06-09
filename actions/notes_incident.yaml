@@ -1,0 +1,9 @@
+name: view_notes_incident
+runner_type: run-python
+description: Show all notes associated with an incident
+enabled: true
+entry_point: notes_incident.py
+parameters:
+  ids:
+    type: array
+    description: Array of incident ids

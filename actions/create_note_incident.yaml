@@ -1,0 +1,15 @@
+name: create_note_incident
+runner_type: run-python
+description: Create note attached to an incident
+enabled: true
+entry_point: create_note_incident.py
+parameters:
+  ids:
+    type: array
+    description: Array of incident ids
+  content:
+    type: string
+    description: Content of the note
+  from_email:
+    type: string
+    description: Email address of user creating note

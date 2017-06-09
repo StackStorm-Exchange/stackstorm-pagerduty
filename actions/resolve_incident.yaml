@@ -7,6 +7,9 @@ parameters:
   ids:
     type: array
     description: Array of incident ids
-  email:
+  from_email:
     type: string
     description: Email address used to acknowledge the incident
+  resolution:
+    type: string
+    description: Resolution description

@@ -1,0 +1,15 @@
+name: snooze_incident
+runner_type: run-python
+description: Snooze incident for specified time
+enabled: true
+entry_point: snooze_incident.py
+parameters:
+  duration:
+    type: string
+    description: Number of seconds to snooze the incident
+  ids:
+    type: array
+    description: Array of incident ids
+  from_email:
+    type: string
+    description: Email of the user requesting the snooze

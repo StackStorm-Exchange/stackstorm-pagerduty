@@ -4,13 +4,16 @@ description: Launch an incident on PagerDuty
 enabled: true
 entry_point: launch_incident.py
 parameters:
-  details:
+  title:
     type: string
-    description: Details of the incident 
-  description:
+    description: Incident title
+  from_email:
     type: string
-    description: Description of the incident
+    description: Email associated with the incident
     required: true
   incident_key:
     type: string
-    description: De-duplication key
+    description: De-duplication/Incident key
+  details:
+    type: string
+    description: Custom details

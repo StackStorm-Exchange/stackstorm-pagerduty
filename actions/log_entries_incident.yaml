@@ -1,0 +1,21 @@
+name: log_entries_incident
+runner_type: run-python
+description: Show all log entries associated with an incident
+enabled: true
+entry_point: log_entries_incident.py
+parameters:
+  ids:
+    type: array
+    description: Array of incident ids
+  time_zone:
+    type: string
+    description: Time zone
+  is_overview:
+    type: boolean
+    description: Is overview
+  include:
+    type: string
+    description: Include
+  fetch_all:
+    type: boolean
+    description: Fetch all records
