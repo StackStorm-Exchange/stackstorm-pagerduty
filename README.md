@@ -59,3 +59,15 @@ You can also use dynamic values from the datastore. See the
 * Enter a name for the new service, and ensure the `Use our API directly` radio button is selected.
 * Click `Add Service`.
 * Copy and paste the service key into `pagerduty.yaml`
+
+# ChatOps
+
+The following chatops action aliases are defined:
+
+* `get open incidents`
+* `create incident {{description}}`
+* `ack incident ids {{ids}} with {{email}}`
+* `resolve incident ids {{ids}} with {{email}}`
+
+`{{ids}}` is a comma separated list of incident ids, and `{{email}}` is the email address of the
+user acknowledging or resolving the incident. `{{description}}` is the title of the incident.
