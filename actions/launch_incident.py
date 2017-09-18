@@ -37,6 +37,4 @@ class LaunchIncident(PagerDutyAction):
         except BadRequest as e:
             print(e)
 
-        print(incident.json)
-
         return incident
