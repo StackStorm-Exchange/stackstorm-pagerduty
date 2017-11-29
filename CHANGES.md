@@ -1,5 +1,8 @@
 # Change Log
 
+# 0.4.2
+- Updated launch_incident action metadata `details` parameter needs to be object
+
 # 0.4.0
 
 - Updated action `runner_type` from `run-python` to `python-script`
