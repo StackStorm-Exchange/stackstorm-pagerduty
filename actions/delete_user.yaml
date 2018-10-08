@@ -1,0 +1,10 @@
+name: delete_user
+runner_type: python-script
+description: Create a PagerDuty user
+enabled: true
+entry_point: delete_user.py
+parameters:
+  email:
+    type: "string"
+    description: "The email address for the user."
+    required: true
