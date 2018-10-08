@@ -7,7 +7,7 @@ from st2tests.base import BaseActionTestCase
 class PdUser(object):
     @property
     def id(self):
-        return 'PD5678'
+        return 'PD1234'
 
     @property
     def email(self):
