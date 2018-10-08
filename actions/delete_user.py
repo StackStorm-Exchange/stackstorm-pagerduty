@@ -16,8 +16,6 @@ class DeleteUser(PagerDutyAction):
             "error": None
         }
 
-        user_id = None
-
         users = self.pager.User.find(email=email)
 
         if users:
