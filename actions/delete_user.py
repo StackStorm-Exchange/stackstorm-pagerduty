@@ -5,7 +5,7 @@ from pypd.errors import BadRequest
 class DeleteUser(PagerDutyAction):
     def run(self, email):
         """
-        Delete a user from PagerDuty (`or raise an error if not possible)
+        Delete a user from PagerDuty (or raise an error if not possible)
 
         :param email: The
         :return: (success (bool), results (obj).
