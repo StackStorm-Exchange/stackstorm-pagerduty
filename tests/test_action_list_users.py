@@ -19,10 +19,12 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
         ]
 
         action = self.get_action_instance(self.full_config)
-        action.pager.User.find = MagicMock(return_value=[{'id': 'PD1234', 'email': 'bob@example.com'},
-                                                         {'id': 'PD5678', 'email': 'fred@example.com'}
-                                                         ]
-                                           )
+        action.pager.User.find = MagicMock(
+            return_value=[
+                {'id': 'PD1234', 'email': 'bob@example.com'},
+                {'id': 'PD5678', 'email': 'fred@example.com'}
+            ]
+        )
 
         result = action.run()
         self.assertEqual(result, expected)
