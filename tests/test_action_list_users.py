@@ -4,7 +4,7 @@ from list_users import ListUsers
 from st2tests.base import BaseActionTestCase
 
 
-class PdUser(obect):
+class PdUser(object):
     @property
     def id(self):
         return 'PD5678'
