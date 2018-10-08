@@ -4,6 +4,16 @@ from list_users import ListUsers
 from st2tests.base import BaseActionTestCase
 
 
+class PdUser(obect):
+    @property
+    def id(self):
+        return 'PD5678'
+
+    @property
+    def email(self):
+        return 'bob@example.com'
+
+
 class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
     action_cls = ListUsers
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
@@ -15,15 +25,11 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
     def test_run_user_list(self):
         expected = [
             {'id': 'PD1234', 'email': 'bob@example.com'},
-            {'id': 'PD5678', 'email': 'fred@example.com'},
         ]
 
         action = self.get_action_instance(self.full_config)
         action.pager.User.find = MagicMock(
-            return_value=[
-                {'id': 'PD1234', 'email': 'bob@example.com'},
-                {'id': 'PD5678', 'email': 'fred@example.com'}
-            ]
+            return_value=[PdUser()]
         )
 
         result = action.run()
