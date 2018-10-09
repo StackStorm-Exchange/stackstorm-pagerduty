@@ -40,7 +40,6 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
     def test_run_list_user_single(self):
         expected = [
             {'id': 'PD1234', 'email': 'bob@example.com'},
-            {'id': 'PD5678', 'email': 'fred@example.com'},
         ]
 
         action = self.get_action_instance(self.full_config)
