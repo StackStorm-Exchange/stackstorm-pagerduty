@@ -1,8 +1,11 @@
 from mock import MagicMock
-from pypd.errors import BadRequest
 
 from delete_user import DeleteUser
 from st2tests.base import BaseActionTestCase
+
+
+class BadRequest(Exception):
+    pass
 
 
 class PdUser(object):
@@ -16,7 +19,7 @@ class PdUser(object):
 
     @staticmethod
     def remove():
-        return True
+        raise BadRequest("PagerDuty Error")
 
 
 class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
@@ -72,9 +75,6 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
         action.pager.User.find = MagicMock(
             return_value=[PdUser()]
         )
-
-        action.pager.User.remove = MagicMock()
-        action.pager.User.remove.side_effect = BadRequest("504", "PagerDuty Error")
 
         (success, result) = action.run('bob@example.com')
         self.assertFalse(success)
