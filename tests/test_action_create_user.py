@@ -30,7 +30,7 @@ class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
 
         action = self.get_action_instance(self.full_config)
 
-        action.pager.User.find = MagicMock(
+        action.pager.User.create = MagicMock(
             return_value=PdUser()
         )
 
