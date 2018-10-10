@@ -1,3 +1,5 @@
+from mock import MagicMock
+
 from list_users import ListUsers
 from st2tests.base import BaseActionTestCase
 
@@ -20,7 +22,6 @@ class BadRequest(object):
     pass
 
 
-
 class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
     action_cls = ListUsers
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
@@ -30,7 +31,7 @@ class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
         self.assertIsInstance(action, self.action_cls)
 
     def test_run_removal_success(self):
-        expected = {"user_id": PD1234, "error": None}
+        expected = {"user_id": "PD1234", "error": None}
 
         action = self.get_action_instance(self.full_config)
 
