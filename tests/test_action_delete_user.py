@@ -1,6 +1,6 @@
 from mock import MagicMock
 
-from list_users import ListUsers
+from delete_user import DeleteUser
 from st2tests.base import BaseActionTestCase
 
 
@@ -22,8 +22,8 @@ class BadRequest(object):
     pass
 
 
-class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
-    action_cls = ListUsers
+class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
+    action_cls = DeleteUser
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 
     def test_run_is_instance(self):
