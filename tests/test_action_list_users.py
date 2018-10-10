@@ -34,7 +34,8 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
             return_value=[]
         )
 
-        result = action.run()
+        success, result = action.run()
+        self.assertTrue(success)
         self.assertEqual(result, expected)
 
     def test_run_list_user_single(self):
@@ -47,7 +48,8 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
             return_value=[PdUser('PD1234', 'bob@example.com')]
         )
 
-        result = action.run()
+        success, result = action.run()
+        self.assertTrue(success)
         self.assertEqual(result, expected)
 
     def test_run_list_user_multiple(self):
@@ -62,5 +64,6 @@ class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
                           PdUser('PD5678', 'fred@example.com')]
         )
 
-        result = action.run()
+        success, result = action.run()
+        self.assertTrue(success)
         self.assertEqual(result, expected)
