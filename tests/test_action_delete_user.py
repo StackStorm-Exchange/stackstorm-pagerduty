@@ -65,7 +65,7 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
         self.assertEqual(result, expected)
 
     def test_run_fail_with_BadRequest(self):
-        expected = {"user_id": 'PD1234', "error": "PagerDuty Error"}
+        expected = {"user_id": 'PD1234', "error": "BadRequest (504): PagerDuty Error"}
 
         action = self.get_action_instance(self.full_config)
         pd_user = PdUser()
