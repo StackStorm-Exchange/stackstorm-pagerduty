@@ -39,6 +39,17 @@ class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
             return_value=[PdUser()]
         )
 
-        success, result = action.run()
+        (success, result) = action.run()
         self.assertTrue(success)
+        self.assertEqual(result, expected)
+
+    def test_run_no_users(self):
+        expected = {"user_id": None, "error": "Found 0 users!"}
+
+        action = self.get_action_instance(self.full_config)
+
+        action.pager.User.find = MagicMock(return_value=[])
+
+        (success, result) = action.run()
+        self.assertFalse(success)
         self.assertEqual(result, expected)
