@@ -26,6 +26,14 @@ st2 run pagerduty.ack_incident email='<email>' ids=<comma separated list of inci
 st2 run pagerduty.resolve_incident email='<email>' ids=<comma separated list of incident ids>
 ```
 
+5. User Management can be carried out by the following actions
+
+```
+st2 run pagerduty.list_users
+st2 run pagerduty.create_user email='<email>'
+st2 run pagerduty.delete_user email='<email>' name='Bob' role='user' job_title='Bob'
+```
+
 # Configuration
 
 To create and install the config file, you can run:
