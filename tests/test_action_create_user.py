@@ -27,7 +27,7 @@ class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
         self.assertIsInstance(action, self.action_cls)
 
     def test_run_create_success(self):
-        expected = {"user_id": "PD1234", "email": 'bob@example.com'}
+        expected = {"id": "PD1234", "email": 'bob@example.com'}
 
         action = self.get_action_instance(self.full_config)
 

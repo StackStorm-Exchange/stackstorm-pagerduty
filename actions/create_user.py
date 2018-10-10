@@ -6,6 +6,7 @@ class CreateUser(PagerDutyAction):
         """
         Create a user in PagerDuty.
         """
+        success = True
 
         user_data = {
             'type': 'user',
@@ -20,4 +21,4 @@ class CreateUser(PagerDutyAction):
         pd_user = self.pager.User.create(data=user_data,
                                          from_email=email)
 
-        return pd_user.json
+        return success, pd_user.json
