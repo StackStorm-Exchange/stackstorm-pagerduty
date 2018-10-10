@@ -18,7 +18,7 @@ class PdUser(object):
         return True
 
 
-class BadRequest(object):
+class BadRequest(Exception):
     pass
 
 
@@ -61,6 +61,19 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
 
         action.pager.User.find = MagicMock(
             return_value=[PdUser(), PdUser()]
+        )
+
+        (success, result) = action.run('bob@example.com')
+        self.assertFalse(success)
+        self.assertEqual(result, expected)
+
+    def test_run_fail_on_BadRequest(self):
+        expected = {"user_id": None, "error": "PagerDuty Error"}
+
+        action = self.get_action_instance(self.full_config)
+
+        action.pager.User.find = MagicMock(
+            sideeffect=BadRequest("PagerDuty Error")
         )
 
         (success, result) = action.run('bob@example.com')
