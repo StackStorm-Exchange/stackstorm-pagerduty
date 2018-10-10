@@ -13,6 +13,7 @@ class PdUser(object):
     def email(self):
         return 'bob@example.com'
 
+    @property
     def json(self):
         return {"id": self.id, "email": self.email}
 
