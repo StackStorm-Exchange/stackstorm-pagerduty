@@ -1,3 +1,5 @@
+from mock import MagicMock
+
 from create_user import CreateUser
 from st2tests.base import BaseActionTestCase
 
@@ -11,8 +13,7 @@ class PdUser(object):
     def email(self):
         return 'bob@example.com'
 
-    @staticmethod
-    def json():
+    def json(self):
         return {"id": self.id, "email": self.email}
 
 
@@ -38,6 +39,6 @@ class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
             email='bob@example.com',
             role="user",
             job_title="Chef cook and bottle washer"
-            )
+        )
         self.assertTrue(success)
         self.assertEqual(result, expected)
