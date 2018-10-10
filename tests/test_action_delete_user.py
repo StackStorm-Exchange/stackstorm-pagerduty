@@ -39,7 +39,7 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
             return_value=[PdUser()]
         )
 
-        (success, result) = action.run()
+        (success, result) = action.run('bob@example.com')
         self.assertTrue(success)
         self.assertEqual(result, expected)
 
@@ -50,6 +50,6 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
 
         action.pager.User.find = MagicMock(return_value=[])
 
-        (success, result) = action.run()
+        (success, result) = action.run('bob@example.com')
         self.assertFalse(success)
         self.assertEqual(result, expected)
