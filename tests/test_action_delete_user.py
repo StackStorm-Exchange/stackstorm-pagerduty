@@ -72,7 +72,7 @@ class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
 
         action = self.get_action_instance(self.full_config)
 
-        action.pager.User.find = MagicMock(
+        action.pager.User.remove = MagicMock(
             side_effect=BadRequest("PagerDuty Error")
         )
 
