@@ -7,6 +7,7 @@ class ListUsers(PagerDutyAction):
         Get the list of all users from PagerDuty.
         """
         users = []
+        success = True
 
         pd_users = self.pager.User.find()
 
@@ -16,4 +17,4 @@ class ListUsers(PagerDutyAction):
                 "email": pd_user.email,
             })
 
-        return users
+        return success, users
