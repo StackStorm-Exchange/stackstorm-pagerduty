@@ -2,7 +2,7 @@ from open_incidents import OpenIncident
 from st2tests.base import BaseActionTestCase
 
 
-class PagerDuytyOpenIncidentActionTestCase(BaseActionTestCase):
+class PagerDutyOpenIncidentActionTestCase(BaseActionTestCase):
     action_cls = OpenIncident
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 

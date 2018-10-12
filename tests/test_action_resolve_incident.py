@@ -2,7 +2,7 @@ from resolve_incident import ResolveIncident
 from st2tests.base import BaseActionTestCase
 
 
-class PagerDuytyResolveIncidentActionTestCase(BaseActionTestCase):
+class PagerDutyResolveIncidentActionTestCase(BaseActionTestCase):
     action_cls = ResolveIncident
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 

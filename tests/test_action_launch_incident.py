@@ -2,7 +2,7 @@ from launch_incident import LaunchIncident
 from st2tests.base import BaseActionTestCase
 
 
-class PagerDuytyLaunchIncidentActionTestCase(BaseActionTestCase):
+class PagerDutyLaunchIncidentActionTestCase(BaseActionTestCase):
     action_cls = LaunchIncident
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 

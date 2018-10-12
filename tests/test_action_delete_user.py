@@ -19,7 +19,7 @@ class PdUser(object):
         return True
 
 
-class PagerDuytyDeleteUserActionTestCase(BaseActionTestCase):
+class PagerDutyDeleteUserActionTestCase(BaseActionTestCase):
     action_cls = DeleteUser
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 

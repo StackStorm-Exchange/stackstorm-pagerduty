@@ -18,7 +18,7 @@ class PdUser(object):
         return {"id": self.id, "email": self.email}
 
 
-class PagerDuytyCreateUserActionTestCase(BaseActionTestCase):
+class PagerDutyCreateUserActionTestCase(BaseActionTestCase):
     action_cls = CreateUser
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 

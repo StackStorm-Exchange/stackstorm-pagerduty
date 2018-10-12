@@ -18,7 +18,7 @@ class PdUser(object):
         return self._email
 
 
-class PagerDuytyListUsersActionTestCase(BaseActionTestCase):
+class PagerDutyListUsersActionTestCase(BaseActionTestCase):
     action_cls = ListUsers
     full_config = {'api_key': 'abc1234', 'service_key': 'abc1234'}
 
