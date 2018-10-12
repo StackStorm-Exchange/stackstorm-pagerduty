@@ -25,7 +25,7 @@ class DeleteUser(PagerDutyAction):
                     users[0].remove()
                 except BadRequest as e:
                     success = False
-                    results['error'] = str(e)
+                    results['error'] = e
             else:
                 results['error'] = "Found {} users!".format(len(users))
                 success = False
