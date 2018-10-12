@@ -1,5 +1,11 @@
 # Change Log
 
+# 0.5.0
+- Add actions for user management (Fixes: #15):
+  - `list_users`.
+  - `create_user`.
+  - `delete_user`.
+
 # 0.4.2
 - Updated launch_incident action metadata `details` parameter needs to be object
 
