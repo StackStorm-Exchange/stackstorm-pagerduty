@@ -1,5 +1,8 @@
 # Change Log
 
+# 0.6.0
+- Complete pack redesign (*No backwards compatibility*)
+
 # 0.5.0
 - Add actions for user management (Fixes: #15):
   - `list_users`.
