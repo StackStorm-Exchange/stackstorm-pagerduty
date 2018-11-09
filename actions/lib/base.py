@@ -83,33 +83,32 @@ class PdBaseAction(Action):
             #use pypd method entity.json to return the entity as json
             return delete.json
 
-#Next up... Variable methods!
-    # def other(self, entity=None, method=None, **kwargs):
-    #     """ method for variable entity operations
-    #     """ 
-    #     if entity is None:
-    #         raise InvalidArguments(entity)    
-    #     if method is None:
-    #         raise InvalidArguments(method)
-    #     data = {}
-    #     if kwargs.get('resource_id', None):
-    #         resource_id = str(kwargs.pop('resource_id'))
-    #         #if resource_id is present it means that we need to run the method against an existing resource, look it up
-    #         resource = getattr(self.pd, entity).fetch(id=resource_id)
+    def other(self, entity=None, method=None, **kwargs):
+        """ method for variable entity operations
+        """ 
+        if entity is None:
+            raise InvalidArguments(entity)    
+        if method is None:
+            raise InvalidArguments(method)
+        data = {}
+        if kwargs.get('resource_id', None):
+            resource_id = str(kwargs.pop('resource_id'))
+            #if resource_id is present it means that we need to run the method against an existing resource, look it up
+            resource = getattr(self.pd, entity).fetch(id=resource_id)
 
-    #     if kwargs.get('from_email', None):
-    #         from_email = str(kwargs.pop('from_email'))
-    #         data['from_email'] = from_email
+        if kwargs.get('from_email', None):
+            from_email = str(kwargs.pop('from_email'))
+            data['from_email'] = from_email
 
-    #     payload = {}
-    #     for k, v in kwargs.iteritems():
-    #         payload[k] = v  
-    #     data['data'] = json.dumps(payload) #assign payload as a string value to a key
-    #     parameters = ''.join('{0}{1}'.format(key, val) for key, val in data.iteritems()) 
+        payload = {}
+        for k, v in kwargs.iteritems():
+            payload[k] = v  
+        data['data'] = json.dumps(payload) #assign payload as a string value to a key
+        parameters = ''.join('{0}{1}'.format(key, val) for key, val in data.iteritems()) 
 
-    #     if resource_id:
+        if resource_id:
 
-    #         result = setattr(resource, method, )
+            result = setattr(resource, method, )
 
 
 # class Error(Exception):

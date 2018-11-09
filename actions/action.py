@@ -38,7 +38,6 @@ class PdAction(PdBaseAction):
 			resource_id = str(kwargs.pop('resource_id'))
 			return (True, self.delete(entity=entity, _id=resource_id, **kwargs))
 
-#Next up... Variable methods!
-		# else:
-		# 	#many entities have custom methods that require specific fields, if 'id' is significant, pass 'resource_id' and it will be handled
-		# 	return (True, self.other(entity=entity, method=method, **kwargs))
+		else:
+			#many entities have custom methods that require specific fields, if 'id' is significant, pass 'resource_id' and it will be handled
+			return (True, self.other(entity=entity, method=method, **kwargs))
