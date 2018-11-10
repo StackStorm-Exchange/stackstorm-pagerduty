@@ -1,4 +1,4 @@
-description: "find users"
+description: "find users by criteria"
 enabled: true
 entry_point: action.py
 runner_type: python-script

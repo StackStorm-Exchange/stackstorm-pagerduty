@@ -1,4 +1,4 @@
-description: "create a new user"
+description: "create a user"
 enabled: true
 entry_point: action.py
 runner_type: python-script
