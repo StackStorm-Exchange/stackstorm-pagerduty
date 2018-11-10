@@ -4,6 +4,7 @@ name: pagerduty
 description: Packs which allows integration with PagerDuty services.
 version: 0.6.0
 author: Ian Price
+email: ianmprice@gmail.com
 contributors:
   - Ian Price (rewrite author) <ianmprice@gmail.com>
   - Jon Middleton <jjm@geeky-and-blonde.me.uk>
