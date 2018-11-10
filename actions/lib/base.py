@@ -7,8 +7,9 @@ from st2common.runners.base_action import Action
 class PdBaseAction(Action):
     """ Base Pagerduty class for all actions
     """
+
     # if entity is None:
-    #     raise InvalidArguments(entity)
+    #   raise InvalidArguments(entity)
 
     def __init__(self, config):
         """ init method, run at class creation

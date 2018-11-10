@@ -1,5 +1,7 @@
 # PagerDuty
 
+#Pending rewrite
+
 This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
 
 1. List all the open incidents on PD (for a given api key)
