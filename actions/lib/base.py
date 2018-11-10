@@ -7,8 +7,8 @@ from st2common.runners.base_action import Action
 class PdBaseAction(Action):
     """ Base Pagerduty class for all actions
     """
-    if entity is None:
-        raise InvalidArguments(entity)
+    # if entity is None:
+    #     raise InvalidArguments(entity)
 
     def __init__(self, config):
         """ init method, run at class creation
@@ -60,13 +60,15 @@ class PdBaseAction(Action):
             # use pypd method entity.json to return the entity as json
             return delete.json
 
-    def create(self, entity=None, from_email=None, payload=None, **kwargs):
+    def create(self, entity=None, from_email=None, data=None, **kwargs):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
         if from_email is None:
             raise InvalidArguments(from_email)
-        if payload is None:
-            raise InvalidArguments(payload)
+        if data is None:
+            raise InvalidArguments(data)
+
+        payload = json.dumps(data)
 
         create = getattr(self.pd, entity).create(
             data=payload, from_email=from_email, **kwargs)
@@ -109,7 +111,7 @@ class PdBaseAction(Action):
             raise InvalidArguments(user_id)
 
         source = getattr(self.pd, entity).fetch(id=user_id)
-        user_id_method = getattr(source, ("%s(%s" % method, **kwargs))
+        user_id_method = getattr(source, method)(**kwargs)
 
         # use pypd method entity.json to return the entity as json
         return _method.json

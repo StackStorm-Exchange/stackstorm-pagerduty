@@ -47,13 +47,12 @@ class PdAction(PdBaseAction):
                 return (False, "from_email is a required field. Needed for pypd.entity.create()")
             from_email = str(kwargs.pop('from_email'))
 
-            # data should be a JSON array with a defined JSONschema in the action to
-            # enforce API compliance.
+            # data should be a JSON object with a defined JSONschema in the action to enforce API compliance.
             if not kwargs.get('data', None):
                 return (False, "user_id is a required field. Needed for pypd.entity.create()")
-            data = str(kwargs.pop('data'))
+            data = kwargs.pop('data')
 
-            return (True, self.create(entity=entity, from_email=from_email, payload=data, **kwargs))
+            return (True, self.create(entity=entity, from_email=from_email, data=data, **kwargs))
 
         # other id based methods
         else:
