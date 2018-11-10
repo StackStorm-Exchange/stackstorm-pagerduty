@@ -18,31 +18,37 @@ parameters:
     description: The email address of a valid user associated with the account making the request.
     type: string
     required: true
-  type:
-    description: Can be user or user_reference
-    type: string
-    default: user
-    required: true
-  name:
-    description: The name of the user.
-    type: string
-    required: true
-  email:
-    description: The user's email address.
-    type: string
-    required: true
-  time_zone:
-    description: The preferred time zone name. If null, the account's time zone will be used.
-    type: string   
-  color:
-    description: The schedule color (word).
-    type: string
-  role:
-    description: The user role.
-    type: string
-  description:
-    description: The user's bio.
-    type: string
-  job_title:
-    description: The user's title. 
-    type: string
+  data:
+    type: array
+    items:
+      type:
+        description: Can be user or user_reference
+        type: string
+        default: user
+        required: true
+        enum:
+          - user
+          - user_reference
+      name:
+        description: The name of the user.
+        type: string
+        required: true
+      email:
+        description: The user's email address.
+        type: string
+        required: true
+      time_zone:
+        description: The preferred time zone name. If null, the account's time zone will be used.
+        type: string   
+      color:
+        description: The schedule color (word).
+        type: string
+      role:
+        description: The user role.
+        type: string
+      description:
+        description: The user's bio.
+        type: string
+      job_title:
+        description: The user's title. 
+        type: string

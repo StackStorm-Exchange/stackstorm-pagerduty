@@ -14,7 +14,7 @@ parameters:
     type: string
     default: create
     immutable: true
-  resource_id:
-    description: The ID of the user to be deleted
+  _id:
+    description: The ID of the user to be deleted (translates to the 'id' key for a user object in PagerDuty)
     type: string
     required: true
