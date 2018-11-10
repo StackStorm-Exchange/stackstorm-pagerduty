@@ -11,13 +11,13 @@ class PdBaseAction(Action):
         raise InvalidArguments(entity)
 
     def __init__(self, config):
-        """ init method, run at class creation 
+        """ init method, run at class creation
         """
         super(PdBaseAction, self).__init__(config)
         self.pd = self._init_client()
 
     def _init_client(self):
-        """ init_client method, run at class creation 
+        """ init_client method, run at class creation
         """
         pypd.api_key = self.config['api_key']
         pypd.service_key = self.config['service_key']
@@ -35,12 +35,12 @@ class PdBaseAction(Action):
     def find(self, entity=None, **kwargs):
         """ base find() method defined in pypd.entity.find() usable by all entities
         """
-        if not 'maximum' in kwargs:
+        if 'maximum' not in kwargs:
             # if maximum was ommited from the action, or didn't have a default,
             # make sure we don't have a rediculous response
             kwargs['maximum'] = 25
 
-        find = getattr(self.pd, entity).find(**kwargs):
+        find = getattr(self.pd, entity).find(**kwargs)
         found = []
         for f in find:
             found.append(f.json)
@@ -77,7 +77,7 @@ class PdBaseAction(Action):
         """ base method to handle other methods that depend on an `id`
 
             Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
-            
+
             If the method has a secondary id for a resource attached to a parent id (user.id vs user.id.notification_rule.id)
             it can't be sent as the proper name referenced in the API. pypd decided that instead of just taking `user.id` and `secondary.id`
             you must first instantiate `user.id` and then call the method as `user.secondary.id`
