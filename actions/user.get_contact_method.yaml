@@ -14,11 +14,11 @@ parameters:
     default: get_contact_method
     immutable: true
     type: string
-  _id:
+  user_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
-  iid:
+  resource_id:
     description: translates to the 'id' key for a contact_method object in PagerDuty
     type: string
     required: true

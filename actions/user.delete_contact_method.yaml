@@ -18,7 +18,7 @@ parameters:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
-  _id:
+  resource_id:
     description: translates to the 'id' key for a contact_method object in PagerDuty
     type: string
     required: true

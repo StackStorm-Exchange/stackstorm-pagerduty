@@ -18,13 +18,12 @@ parameters:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
-  _id:
+  resource_id:
     description: translates to the 'id' key for a notification_rule object in PagerDuty
     type: string
     required: true
   include:
     description: Array of additional details to include.
-    default: Null
     type: array
     enum:
       - contact_methods

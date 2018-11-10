@@ -19,8 +19,9 @@ parameters:
     type: string
     required: true
   data:
-    type: object
     description: A JSON object with the data that should be sent for contact_method creation. See action definition for details (JSONSchema).
+    type: object
+    required: true
     items:
       type: object
       properties:

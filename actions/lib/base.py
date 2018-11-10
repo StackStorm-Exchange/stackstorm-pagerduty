@@ -60,15 +60,13 @@ class PdBaseAction(Action):
             # use pypd method entity.json to return the entity as json
             return delete.json
 
-    def create(self, entity=None, from_email=None, data=None, **kwargs):
+    def create(self, entity=None, from_email=None, payload=None, **kwargs):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
         if from_email is None:
             raise InvalidArguments(from_email)
-        if data is None:
-            raise InvalidArguments(data)
-
-        payload = json.dumps(data)
+        if payload is None:
+            raise InvalidArguments(payload)
 
         create = getattr(self.pd, entity).create(
             data=payload, from_email=from_email, **kwargs)
@@ -76,14 +74,14 @@ class PdBaseAction(Action):
         return create.json
 
     def user_id_method(self, entity=None, method=None, user_id=None, **kwargs):
-        """ base method to handle other methods that depend on an `id`
+        """ base method to handle other methods that depend on an `id` for a user
 
             Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
 
             If the method has a secondary id for a resource attached to a parent id (user.id vs user.id.notification_rule.id)
-            it can't be sent as the proper name referenced in the API. pypd decided that instead of just taking `user.id` and `secondary.id`
-            you must first instantiate `user.id` and then call the method as `user.secondary.id`
-            For this reason secondary id needs to be passed as `_id` so that we can rewrite the _id key to `id`
+            it can't be sent as the proper name referenced in the API. pypd decided that instead of just accepting `user.id` and `secondary.id`
+            you must first instantiate `user.id` and then call the method as `user.method(secondary.id)`
+            For this reason secondary id needs to be passed as `resource_id` so that we can rewrite the `resource_id` key to `id`
             and have it pass through with kwargs as "id=<value>"
             This is all obviously less than ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
             to not need pypd and use custom rest client. (maybe the next major version?)
@@ -109,9 +107,13 @@ class PdBaseAction(Action):
         # check for required fields
         if not user_id:
             raise InvalidArguments(user_id)
+        # if there is a specific ID for the method being called, it should be passed as `resource_id` and we
+        # will change it to `id` which is what pypd expects.
+        if kwargs.get('resource_id', None):
+            kwargs['id'] = kwargs.pop('resource_id')
 
         source = getattr(self.pd, entity).fetch(id=user_id)
         user_id_method = getattr(source, method)(**kwargs)
 
         # use pypd method entity.json to return the entity as json
-        return _method.json
+        return user_id_method.json
