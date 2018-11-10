@@ -23,12 +23,12 @@ class PdBaseAction(Action):
         pypd.service_key = self.config['service_key']
         return pypd
 
-    def fetch(self, entity=None, user_id=None, **kwargs):
+    def fetch(self, entity=None, entity_id=None, **kwargs):
         """ base fetch() method defined in pypd.entity.fetch() usable by most entities
         """
-        if user_id is None:
-            raise InvalidArguments(user_id)
-        fetch = getattr(self.pd, entity).fetch(id=user_id, **kwargs)
+        if entity_id is None:
+            raise InvalidArguments(entity_id)
+        fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
         # use pypd method entity.json to return the entity as json
         return fetch.json
 
@@ -48,12 +48,12 @@ class PdBaseAction(Action):
         # use pypd method entity.json to return the entity as json
         return found
 
-    def delete(self, entity=None, user_id=None, **kwargs):
+    def delete(self, entity=None, entity_id=None, **kwargs):
         """ base delete() method defined in pypd.entity.delete() usable by most entities
         """
-        if user_id is None:
-            raise InvalidArguments(user_id)
-        delete = getattr(self.pd, entity).delete(id=user_id, **kwargs)
+        if entity_id is None:
+            raise InvalidArguments(entity_id)
+        delete = getattr(self.pd, entity).delete(id=entity_id, **kwargs)
         if delete is True:
             return json.loads('{"deleted":true}')
         else:
@@ -73,7 +73,7 @@ class PdBaseAction(Action):
         # use pypd method entity.json to return the entity as json
         return create.json
 
-    def user_id_method(self, entity=None, method=None, user_id=None, **kwargs):
+    def entity_id_method(self, entity=None, method=None, entity_id=None, **kwargs):
         """ base method to handle other methods that depend on an `id` for a user
 
             Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
@@ -88,7 +88,7 @@ class PdBaseAction(Action):
 
             If you need to send a payload, it should be a JSON string with the keys and values as defined from the PD API reference
             All the examples will have one extra top level key that should be omitted due to differences between the API and pypd
-            For example, in Teams/put_teamsuser_id the payload ('team') example is
+            For example, in Teams/put_teamsentity_id the payload ('team') example is
                 {
                   "team": {
                     "type": "team",
@@ -105,15 +105,20 @@ class PdBaseAction(Action):
         """
 
         # check for required fields
-        if not user_id:
-            raise InvalidArguments(user_id)
+        if not entity_id:
+            raise InvalidArguments(entity_id)
         # if there is a specific ID for the method being called, it should be passed as `resource_id` and we
         # will change it to `id` which is what pypd expects.
         if kwargs.get('resource_id', None):
             kwargs['id'] = kwargs.pop('resource_id')
 
-        source = getattr(self.pd, entity).fetch(id=user_id)
-        user_id_method = getattr(source, method)(**kwargs)
+        source = getattr(self.pd, entity).fetch(id=entity_id)
+        entity_id_method = getattr(source, method)(**kwargs)
+
+        #delete methods based on a user id will return null/None when successful.
+        #Add useful output consistent with delete()
+        if entity_id_method is None:
+            return json.loads('{"deleted":true}')
 
         # use pypd method entity.json to return the entity as json
-        return user_id_method
+        return entity_id_method

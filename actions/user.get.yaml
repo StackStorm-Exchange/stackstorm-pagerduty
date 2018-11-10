@@ -1,4 +1,4 @@
-description: "get user by user_id"
+description: "get user by id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -14,7 +14,7 @@ parameters:
     default: fetch
     immutable: true
     type: string
-  user_id:
+  parent_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true

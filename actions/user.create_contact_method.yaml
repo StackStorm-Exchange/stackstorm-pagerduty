@@ -1,4 +1,4 @@
-description: "create a contact_method for user by user id"
+description: "create a contact_method for user by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -14,7 +14,7 @@ parameters:
     default: create_contact_method
     immutable: true
     type: string
-  user_id:
+  entity_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true

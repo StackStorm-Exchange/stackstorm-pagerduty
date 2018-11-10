@@ -1,4 +1,4 @@
-description: "delete a user user by user_id"
+description: "delete a user by id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -12,9 +12,9 @@ parameters:
   method:
     description: pypd entity method
     type: string
-    default: create
+    default: delete
     immutable: true
-  user_id:
+  entity_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true

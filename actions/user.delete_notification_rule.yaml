@@ -1,4 +1,4 @@
-description: "delete a notification_rule by id for user_id"
+description: "delete a notification_rule by id for entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -14,7 +14,7 @@ parameters:
     default: delete_notification_rule
     immutable: true
     type: string
-  user_id:
+  entity_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true

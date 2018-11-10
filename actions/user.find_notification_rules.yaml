@@ -1,4 +1,4 @@
-description: "find notification_rules by user_id"
+description: "find notification_rules by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -14,12 +14,10 @@ parameters:
     default: notification_rules
     immutable: true
     type: string
-  user_id:
+  entity_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
   include:
     description: Array of additional details to include.
     type: array
-    enum:
-      - contact_methods
