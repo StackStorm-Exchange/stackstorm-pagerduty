@@ -1,7 +1,9 @@
 from lib.base import PdBaseAction
 
-""" This action can be used as a shortcut for the methods .fetch() .find() and .delete()
-    They follow a strict set of logic that is easily repeatable.
+""" This action prepares data for base logic in lib/base.py
+    Your action.yaml can reference find(), fetch(), delete(), and create() directly.
+    Any other method will fall through to else, and be passed literally to lib/base.py.
+    other methods should match up to a method in pypd.
 """
 
 
@@ -47,7 +49,8 @@ class PdAction(PdBaseAction):
                 return (False, "from_email is a required field. Needed for pypd.entity.create()")
             from_email = str(kwargs.pop('from_email'))
 
-            # data should be a JSON object with a defined JSONschema in the action to enforce API compliance.
+            # data should be a JSON object with a defined JSONschema in the
+            # action to enforce API compliance.
             if not kwargs.get('data', None):
                 return (False, "entity_id is a required field. Needed for pypd.entity.create()")
             data = kwargs.pop('data')
@@ -63,6 +66,6 @@ class PdAction(PdBaseAction):
 
             # if kwargs.get('_id', None):
             #     kwargs['id'] = str(kwargs.pop('_id'))
-                # See note in lib/base/py on why this is happening.
+            # See note in lib/base/py on why this is happening.
 
             return (True, self.entity_id_method(entity=entity, method=method, entity_id=entity_id, **kwargs))

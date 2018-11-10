@@ -115,8 +115,8 @@ class PdBaseAction(Action):
         source = getattr(self.pd, entity).fetch(id=entity_id)
         entity_id_method = getattr(source, method)(**kwargs)
 
-        #delete methods based on a user id will return null/None when successful.
-        #Add useful output consistent with delete()
+        # delete methods based on a user id will return null/None when successful.
+        # Add useful output consistent with delete()
         if entity_id_method is None:
             return json.loads('{"deleted":true}')
 
