@@ -1,0 +1,27 @@
+description: "get a notification_rule by id for entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: user.get_notification_rule
+parameters:
+  entity:
+    description: pypd entity
+    default: User
+    immutable: true
+    type: string
+  method:
+    description: pypd entity method
+    default: get_notification_rule
+    immutable: true
+    type: string
+  entity_id:
+    description: translates to the 'id' key for a user object in PagerDuty
+    type: string
+    required: true
+  resource_id:
+    description: translates to the 'id' key for a notification_rule object in PagerDuty
+    type: string
+    required: true
+  include:
+    description: Array of additional details to include.
+    type: array

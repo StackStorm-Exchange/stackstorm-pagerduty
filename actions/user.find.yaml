@@ -1,4 +1,4 @@
-description: "find users"
+description: "find users by criteria"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -16,11 +16,11 @@ parameters:
     type: string
   maximum:
     description: limit number of entries potentially returned
-    default: 10
+    default: 25
     type: integer
   team_ids:
     description: array of team ids to narrow search to
     type: array
   query:
-    description: a substring match of 'name' or 'email' expression to search with
+    description: a substring search of the 'name' and 'email' field
     type: string

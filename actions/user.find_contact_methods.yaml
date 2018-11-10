@@ -1,8 +1,8 @@
-description: "get user by id"
+description: "find contact_methods for user by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.get
+name: user.find_contact_methods
 parameters:
   entity:
     description: pypd entity
@@ -11,10 +11,10 @@ parameters:
     type: string
   method:
     description: pypd entity method
-    default: fetch
+    default: contact_methods
     immutable: true
     type: string
-  parent_id:
+  entity_id:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
