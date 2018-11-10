@@ -116,4 +116,4 @@ class PdBaseAction(Action):
         user_id_method = getattr(source, method)(**kwargs)
 
         # use pypd method entity.json to return the entity as json
-        return user_id_method.json
+        return user_id_method
