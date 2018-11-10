@@ -14,7 +14,7 @@ parameters:
     default: fetch
     immutable: true
     type: string
-  _id:
-    description: The ID of the user to fetch (translates to the 'id' key for a user object in PagerDuty)
+  user_id:
+    description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true

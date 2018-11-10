@@ -16,7 +16,6 @@ class PdBaseAction(Action):
         super(PdBaseAction, self).__init__(config)
         self.pd = self._init_client()
 
-
     def _init_client(self):
         """ init_client method, run at class creation 
         """
@@ -24,63 +23,72 @@ class PdBaseAction(Action):
         pypd.service_key = self.config['service_key']
         return pypd
 
-
-    def fetch(self, entity=None, _id=None, **kwargs):
+    def fetch(self, entity=None, user_id=None, **kwargs):
         """ base fetch() method defined in pypd.entity.fetch() usable by most entities
         """
-        if _id is None:
-            raise InvalidArguments(_id)
-        fetch = getattr(self.pd, entity).fetch(id=_id, **kwargs)
-        #use pypd method entity.json to return the entity as json
+        if user_id is None:
+            raise InvalidArguments(user_id)
+        fetch = getattr(self.pd, entity).fetch(id=user_id, **kwargs)
+        # use pypd method entity.json to return the entity as json
         return fetch.json
-
 
     def find(self, entity=None, **kwargs):
         """ base find() method defined in pypd.entity.find() usable by all entities
         """
         if not 'maximum' in kwargs:
-            #if maximum was ommited from the action, or didn't have a default, make sure we don't have a rediculous response
+            # if maximum was ommited from the action, or didn't have a default,
+            # make sure we don't have a rediculous response
             kwargs['maximum'] = 25
 
-        find = getattr(self.pd, entity).find(**kwargs): 
+        find = getattr(self.pd, entity).find(**kwargs):
         found = []
         for f in find:
             found.append(f.json)
 
-        #use pypd method entity.json to return the entity as json
+        # use pypd method entity.json to return the entity as json
         return found
 
-    def delete(self, entity=None, _id=None, **kwargs):
+    def delete(self, entity=None, user_id=None, **kwargs):
         """ base delete() method defined in pypd.entity.delete() usable by most entities
         """
-        if _id is None:
-            raise InvalidArguments(_id)
-        delete = getattr(self.pd, entity).delete(id=_id, **kwargs)
+        if user_id is None:
+            raise InvalidArguments(user_id)
+        delete = getattr(self.pd, entity).delete(id=user_id, **kwargs)
         if delete is True:
             return json.loads('{"deleted":true}')
         else:
-            #use pypd method entity.json to return the entity as json
+            # use pypd method entity.json to return the entity as json
             return delete.json
 
-    def create(self, entity=None, from_email=None, **kwargs):
+    def create(self, entity=None, from_email=None, payload=None, **kwargs):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
         if from_email is None:
             raise InvalidArguments(from_email)
+        if payload is None:
+            raise InvalidArguments(payload)
 
-        payload = json.dumps(kwargs)
-
-        create = getattr(self.pd, entity).create(data=payload, from_email=from_email, **kwargs)
-        #use pypd method entity.json to return the entity as json
+        create = getattr(self.pd, entity).create(
+            data=payload, from_email=from_email, **kwargs)
+        # use pypd method entity.json to return the entity as json
         return create.json
 
-    def send_payload(self, entity=None, method=None, _id=None, payload=None, **kwargs):
-        """ base POST method to handle other POST type methods
-            Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
+    def user_id_method(self, entity=None, method=None, user_id=None, **kwargs):
+        """ base method to handle other methods that depend on an `id`
 
-            Payload should be a JSON string with the keys and values as defined from the PD API reference
-            For some reason all the examples will have one extra top level key that should be omitted.
-            For example, in Teams/put_teams_id the payload ('team') example is
+            Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
+            
+            If the method has a secondary id for a resource attached to a parent id (user.id vs user.id.notification_rule.id)
+            it can't be sent as the proper name referenced in the API. pypd decided that instead of just taking `user.id` and `secondary.id`
+            you must first instantiate `user.id` and then call the method as `user.secondary.id`
+            For this reason secondary id needs to be passed as `_id` so that we can rewrite the _id key to `id`
+            and have it pass through with kwargs as "id=<value>"
+            This is all obviously less than ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
+            to not need pypd and use custom rest client. (maybe the next major version?)
+
+            If you need to send a payload, it should be a JSON string with the keys and values as defined from the PD API reference
+            All the examples will have one extra top level key that should be omitted due to differences between the API and pypd
+            For example, in Teams/put_teamsuser_id the payload ('team') example is
                 {
                   "team": {
                     "type": "team",
@@ -95,14 +103,13 @@ class PdBaseAction(Action):
                     "description": "The engineering team"
                 }
         """
-        #check for required fields
-        if not _id:
-            raise InvalidArguments(_id)
-        if not payload:
-            raise InvalidArguments(payload)
 
-        post = getattr(getattr(self.pd, entity), ("%s(id=%s, payload=%s, %s" % method, _id, payload, **kwargs))
-        #use pypd method entity.json to return the entity as json
-        return post.json
+        # check for required fields
+        if not user_id:
+            raise InvalidArguments(user_id)
 
-    put = post #if someone assumes they should use put(), its really the same logic as post()
+        source = getattr(self.pd, entity).fetch(id=user_id)
+        user_id_method = getattr(source, ("%s(%s" % method, **kwargs))
+
+        # use pypd method entity.json to return the entity as json
+        return _method.json

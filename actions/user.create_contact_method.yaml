@@ -1,0 +1,43 @@
+description: "create a contact_method for user by user id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: user.create_contact_method
+parameters:
+  entity:
+    description: pypd entity
+    default: User
+    immutable: true
+    type: string
+  method:
+    description: pypd entity method
+    default: create_contact_method
+    immutable: true
+    type: string
+  user_id:
+    description: translates to the 'id' key for a user object in PagerDuty
+    type: string
+    required: true
+  data:
+    type: array
+    description: A JSON array with the data that should be sent for contact_method creation. See action definition for details (JSONSchema).
+    items:
+      type: object
+      properties:
+        type:
+          description: The type of contact method
+          type: string
+          required: true
+          enum:
+            - email_contact_method
+            - phone_contact_method
+            - push_notification_contact_method
+            - sms_contact_method
+        label:
+          description: The label (e.g., "Work", "Mobile", etc.).
+          type: string
+          required: true
+        address:
+          description: "The 'address' to deliver to: email, phone number, etc., depending on the type."
+          type: string
+          required: true

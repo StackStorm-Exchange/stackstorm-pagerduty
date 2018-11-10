@@ -1,20 +1,24 @@
-description: "delete a user user"
+description: "delete a notification_rule by id for user_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: user.delete_notification_rule
 parameters:
   entity:
     description: pypd entity
-    type: string
     default: User
     immutable: true
+    type: string
   method:
     description: pypd entity method
-    type: string
-    default: create
+    default: delete_notification_rule
     immutable: true
+    type: string
   user_id:
     description: translates to the 'id' key for a user object in PagerDuty
+    type: string
+    required: true
+  _id:
+    description: translates to the 'id' key for a notification_rule object in PagerDuty
     type: string
     required: true

@@ -1,20 +1,24 @@
-description: "delete a user user"
+description: "get contact_methods for user by user id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: user.get_contact_method
 parameters:
   entity:
     description: pypd entity
-    type: string
     default: User
     immutable: true
+    type: string
   method:
     description: pypd entity method
-    type: string
-    default: create
+    default: get_contact_method
     immutable: true
-  user_id:
+    type: string
+  _id:
     description: translates to the 'id' key for a user object in PagerDuty
+    type: string
+    required: true
+  iid:
+    description: translates to the 'id' key for a contact_method object in PagerDuty
     type: string
     required: true
