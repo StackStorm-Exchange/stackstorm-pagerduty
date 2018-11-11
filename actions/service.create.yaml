@@ -99,10 +99,10 @@ parameters:
                   - use_support_hours
               urgency:
                 description: The incidents' urgency, if type is constant.
-                  type: string
-                  enum:
-                    - low
-                    - high
+                type: string
+                enum:
+                  - low
+                  - high
               during_support_hours:
                 description: Incidents' urgency during support hours
                 type: object
@@ -116,10 +116,10 @@ parameters:
                         - constant
                     urgency:
                       description: The incidents' urgency, if type is constant.
-                        type: string
-                        enum:
-                          - low
-                          - high                    
+                      type: string
+                      enum:
+                        - low
+                        - high                    
               outside_support_hours:
                 description: Incidents' urgency during support hours
                 type: object
@@ -133,10 +133,10 @@ parameters:
                         - constant
                     urgency:
                       description: The incidents' urgency, if type is constant.
-                        type: string
-                        enum:
-                          - low
-                          - high 
+                      type: string
+                      enum:
+                        - low
+                        - high 
         support_hours:
           description: The support hours for the service.
           type: object
