@@ -38,4 +38,4 @@ parameters:
     type: string
   earliest:
     description: This will filter on-calls such that only the earliest on-call for each combination of escalation policy, escalation level, and user is returned
-      type: boolean
+    type: boolean
