@@ -95,20 +95,20 @@ parameters:
         assignments:
           description: Assign the incident to these assignees. Cannot be specified if an escalation policy is given.
           type: array
-            items:
-              type: object
-              properties:
-                id: 
-                  description: user id
-                  type: string
-                  required: true
-                type:
-                  description: the type of the user
-                  type: string
-                  required: true
-                  enum:
-                    - user  
-                    - user_reference
+          items:
+            type: object
+            properties:
+              id: 
+                description: user id
+                type: string
+                required: true
+              type:
+                description: the type of the user
+                type: string
+                required: true
+                enum:
+                  - user  
+                  - user_reference
         escalation_policy:
           description: Delegate this incident to the specified escalation policy. Cannot be specified if an assignee is given.
           type: object
