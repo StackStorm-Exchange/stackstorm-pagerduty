@@ -1,0 +1,20 @@
+description: "delete a team by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: team.delete
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Team
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: delete
+    immutable: true
+  entity_id:
+    description: translates to the 'id' key for a team object in PagerDuty
+    type: string
+    required: true

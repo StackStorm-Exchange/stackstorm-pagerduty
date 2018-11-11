@@ -1,0 +1,38 @@
+description: "create a team"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: team.create
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Team
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: create
+    immutable: true
+  data:
+    description: A JSON object with the data that should be sent for team creation. See action definition for details (JSONSchema).
+    type: object
+    required: true
+    items:
+      type: object
+      properties:
+        type:
+          type: string
+          default: team
+          required: true
+          enum:
+            - team
+            - team_reference
+        name:
+          description: The name of the team.
+          type: string
+          required: true
+        description:
+          description: The description of the team.
+          type: string
+          

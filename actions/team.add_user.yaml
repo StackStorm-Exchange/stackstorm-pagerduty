@@ -1,0 +1,24 @@
+description: "add user by id to a team by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: team.add_user
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Team
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: add_user
+    immutable: true
+  entity_id:
+    description: translates to the 'id' key for a team object in PagerDuty
+    type: string
+    required: true
+  user:
+    description: translates to the 'id' key for an user object in PagerDuty
+    type: string
+    required: true

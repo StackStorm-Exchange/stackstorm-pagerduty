@@ -1,0 +1,20 @@
+description: "delete (not started) or end (started / finished) a maintenance_window by id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: maintenance_window.delete
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: MaintenanceWindow
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: delete
+    immutable: true
+  entity_id:
+    description: translates to the 'id' key for a maintenance_window object in PagerDuty
+    type: string
+    required: true
