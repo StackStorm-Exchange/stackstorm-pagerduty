@@ -182,19 +182,19 @@ parameters:
                 description: Represents when scheduled action will occur.
                 type: object
                 required: true
-                  items:
-                    type: object
-                    properties:
+                items:
+                  type: object
+                  properties:
+                    type:
+                      description: Must be set to named_time.
+                      type: string
+                      required: true
+                      enum: 
+                        - named_time
+                    name:
+                      description: Designates either the start or the end of support hours.
                       type:
-                        description: Must be set to named_time.
-                        type: string
-                        required: true
-                        enum: 
-                          - named_time
-                      name:
-                        description: Designates either the start or the end of support hours.
-                        type:
-                        required: true
-                        enum:
-                          - support_hours_start 
-                          - support_hours_end
+                      required: true
+                      enum:
+                        - support_hours_start 
+                        - support_hours_end
