@@ -169,32 +169,27 @@ parameters:
               type:
                 description: The type of schedule action. Must be set to urgency_change.
                 type: string
-                required: true
                 enum:
                   - urgency_change
               to_urgency:
                 description: Urgency level. Must be set to high.
                 type: string
-                required: true
                 enum:
                   - high
               at:
                 description: Represents when scheduled action will occur.
                 type: object
-                required: true
                 items:
                   type: object
                   properties:
                     type:
                       description: Must be set to named_time.
                       type: string
-                      required: true
                       enum:
                         - named_time
                     name:
                       description: Designates either the start or the end of support hours.
                       type:
-                      required: true
                       enum:
                         - support_hours_start
                         - support_hours_end
