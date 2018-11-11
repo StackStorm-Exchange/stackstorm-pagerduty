@@ -112,17 +112,17 @@ parameters:
         escalation_policy:
           description: Delegate this incident to the specified escalation policy. Cannot be specified if an assignee is given.
           type: object
-            items:
-              type: object
-              properties:
-                id: 
-                  description: escalation_policy id
-                  type: string
-                  required: true
-                type:
-                  description: the type of the escalation_policy
-                  type: string
-                  required: true
-                  enum:
-                    - escalation_policy   
-                    - escalation_policy_reference
+          items:
+            type: object
+            properties:
+              id: 
+                description: escalation_policy id
+                type: string
+                required: true
+              type:
+                description: the type of the escalation_policy
+                type: string
+                required: true
+                enum:
+                  - escalation_policy   
+                  - escalation_policy_reference
