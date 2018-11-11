@@ -1,8 +1,8 @@
-description: "reassign an incident to users"
+description: "merge incidents into entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: incident.reassign
+name: incident.merge
 parameters:
   entity:
     description: pypd entity
@@ -12,7 +12,7 @@ parameters:
   method:
     description: pypd entity method
     type: string
-    default: reassign
+    default: merge
     immutable: true
   from_email:
     description: The email address of a valid user associated with the account making the request.
@@ -21,8 +21,8 @@ parameters:
   entity_id:
     description: translates to the 'id' key for an incident object in PagerDuty
     type: string
-    required: true  
-  user_ids:
-    description: an array of user ids to reassign incident to
-    type: array
     required: true
+  source_incidents:
+    description: array of incident ids to be merged into the target incident (entity_id) and resolved
+    type: array
+    required: true 

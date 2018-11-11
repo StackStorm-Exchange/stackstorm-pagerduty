@@ -1,13 +1,13 @@
-description: "delete a user by entity_id"
+description: "delete schedule by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: schedule.delete
 parameters:
   entity:
     description: pypd entity
     type: string
-    default: User
+    default: Schedule
     immutable: true
   method:
     description: pypd entity method
