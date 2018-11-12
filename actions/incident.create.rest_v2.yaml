@@ -1,8 +1,8 @@
-description: "create an incident (complex)"
+description: "create an incident using the v2 REST API (raw data input)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: incident.create
+name: incident.create.rest_v2
 parameters:
   entity:
     description: pypd entity

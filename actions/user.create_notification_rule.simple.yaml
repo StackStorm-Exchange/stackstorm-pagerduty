@@ -1,8 +1,8 @@
-description: "create a notification_rule for user by entity_id (raw data input)"
+description: "create a notification_rule for user by entity_id (simplified)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.create_notification_rule
+name: user.create_notification_rule.simple
 parameters:
   entity:
     description: pypd entity
@@ -18,22 +18,20 @@ parameters:
     description: translates to the 'id' key for a user object in PagerDuty
     type: string
     required: true
+  start_delay_in_minutes:
+    description: The delay before firing the rule, in minutes.
+    type: integer
+    default: 0
+    required: true
+  contact_method_id:
+    description: id of the contact_method to be used
+    type: string
+    required: true
   data:
     description: A JSON object with the data that should be sent for notification_rule creation. See action definition for details (JSONSchema).
     type: object
-    required: true
-    properties:
-      start_delay_in_minutes:
-        description: The delay before firing the rule, in minutes.
-        default: 0
-        type: integer
-        required: true
+    immutable: true
+    default:
+      start_delay_in_minutes: "{{ start_delay_in_minutes }}"
       contact_method:
-        type: object
-        items:
-          type: object
-          properties:
-            id:
-              description: id of the contact_method to be used
-              type: string
-              required: true
+        id: "{{ contact_method_id }}"

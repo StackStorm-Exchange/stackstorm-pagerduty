@@ -1,0 +1,90 @@
+description: "create a service (simplified)"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: service.create.simple
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Service
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: create
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  type:
+    type: string
+    default: user
+    required: true
+    enum:
+      - service
+      - service_reference
+  name:
+    description: The name of the service.
+    type: string
+    required: true
+  description:
+    description: The user-provided description of the service.
+    type: string       
+  auto_resolve_timeout:
+    description: Time in seconds that an incident is automatically resolved if left open for that long (0 or null = disable feature)
+    type: integer
+    default: 14400
+  acknowledgement_timeout:
+    description: Time in seconds that an incident changes to the Triggered State after being Acknowledged. (0 or null = disable feature)
+    type: integer
+    default: 1800
+  status:
+    description: The current state of the Service.
+    type: string
+    default: active
+    enum:
+      - active
+      - warning
+      - critical
+      - maintenance
+      - disabled
+  alert_creation:
+    description: Whether a service creates only incidents, or both alerts and incidents.
+    type: string
+    default: create_alerts_and_incidents
+    enum:
+      - create_incidents
+      - create_alerts_and_incidents
+  alert_grouping:
+    description: Defines how alerts on this service will be automatically grouped into incidents.
+    type: string
+    default: time
+    enum:
+      - time
+      - intelligent
+  alert_grouping_timeout:
+    description: The duration in minutes within which to automatically group incoming alerts. (0 = Continue grouping until resolved)
+    type: integer
+    default: 2
+  escalation_policy_id:
+    description: The id of the escalation policy used by this service.
+    type: string
+  data:
+    description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
+    type: object
+    immutable: true
+    default:
+      type: "{{ type }}"
+      name: "{{ name }}"
+      description: "{{ description }}"  
+      auto_resolve_timeout: "{{ auto_resolve_timeout }}"
+      acknowledgement_timeout: "{{ acknowledgement_timeout }}"
+      status: "{{ status }}"
+      alert_creation: "{{ alert_creation }}"
+      alert_grouping: "{{ alert_grouping }}"
+      alert_grouping_timeout: "{{ alert_grouping_timeout }}"
+      escalation_policy: 
+        id: "{{ escalation_policy_id }}"
+        type: escalation_policy_reference

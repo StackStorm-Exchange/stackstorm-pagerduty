@@ -1,8 +1,8 @@
-description: "create an incident (simplified)"
+description: "create an incident using the v2 REST API (simplified)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: incident.create.simple
+name: incident.create.rest_v2.simple
 parameters:
   entity:
     description: pypd entity
@@ -30,7 +30,7 @@ parameters:
     description: Details for the incident
     type: string
   data:
-    description: Full formatting of data the way it needs to be interpreted
+    description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
     type: object
     immutable: true
     default: 

@@ -1,4 +1,4 @@
-description: "create a team"
+description: "create a team (raw data input)"
 enabled: true
 entry_point: action.py
 runner_type: python-script

@@ -1,4 +1,4 @@
-description: "create an maintenance_window"
+description: "create an maintenance_window (raw data input)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -25,7 +25,7 @@ parameters:
     properties:
       type:
         type: string
-        default: incident
+        default: maintenance_window
         required: true
         enum:
           - maintenance_window
@@ -44,15 +44,19 @@ parameters:
       services:
         description: Services associated with the maintenance window.
         type: array
+        required: true
         items:
           type: object
           properties:
             id:
               description: service id
               type: string
+              required: true
             type:
               description: the type of the service
               type: string
+              default: service_reference
+              required: true
               enum:
                 - service
                 - service_reference

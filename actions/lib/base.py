@@ -27,7 +27,7 @@ class PdBaseAction(Action):
         """ base fetch() method defined in pypd.entity.fetch() usable by most entities
         """
         check_inputs = {}  # Placeholder for input checking
-        check_inputs['entity_id'] = kwargs.get('entity_id', None)
+        check_inputs['entity_id'] = entity_id
         self.check_required(check_inputs)
 
         self.logger.debug('Running pypd fetch() for entity {}'.format(entity))
