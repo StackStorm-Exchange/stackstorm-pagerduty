@@ -82,13 +82,12 @@ class PdBaseAction(Action):
         check_inputs['payload'] = payload
         self.check_required(check_inputs)
 
-        """ Beacuse of wild inconsistencies with the pypd pack in how it handles data,
-            we must duplicate 'from_email' as 'from' because sometimes it's one or the other.
+        """ Beacuse of inconsistencies with the pypd pack in how it handles data, we 
+            must duplicate 'from_email' as 'from' because sometimes it's one or the other.
             It's not great, but we have to send it as both.
             See Incident.create Vs User.create in pypd
             
-            Yes, Pagerduty's API literally uses the well known standard
-            HTTP header field 'From'... I'm not making this up.
+            Pagerduty's API literally requires the well known HTTP header field 'From'
             https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
         """
         kwargs['add_headers'] = ('{"from": "%s"}' % from_email)
@@ -104,19 +103,24 @@ class PdBaseAction(Action):
     def entity_id_method(self, entity=None, method=None, entity_id=None, **kwargs):
         """ base method to handle other methods that depend on an `id` for a user
 
-            Make sure to use the PD API reference to determine if your action needs a `from` (use action parameter `from_email`)
+            Make sure to use the PD API reference to determine if your action 
+            needs a `from` (use action parameter `from_email`)
 
-            If the method has a secondary id for a resource attached to a parent id (user.id vs user.id.notification_rule.id)
-            it can't be sent as the proper name referenced in the API. pypd decided that instead of just accepting `user.id` and `secondary.id`
-            you must first instantiate `user.id` and then call the method as `user.method(secondary.id)`
-            For this reason secondary id needs to be passed as `resource_id` so that we can rewrite the `resource_id` key to `id`
-            and have it pass through with kwargs as "id=<value>"
-            This is all obviously less than ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
+            If the method has a secondary id for a resource attached to a parent id
+            (user.id vs user.id.notification_rule.id) it can't be sent as the proper name
+            referenced in the API. pypd decided that instead of just accepting `user.id` 
+            and `secondary.id` you must first instantiate `user.id` and then call the method
+            as `user.method(secondary.id)`. For this reason secondary id needs to be passed
+            as `resource_id` so that we can rewrite the `resource_id` key to `id` and have 
+            it pass through with kwargs as "id=<value>". This is all obviously less than 
+            ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
             to not need pypd and use custom rest client. (maybe the next major version?)
 
-            If you need to send a payload, it should be a JSON string with the keys and values as defined from the PD API reference
-            All the examples will have one extra top level key that should be omitted due to differences between the API and pypd
-            For example, in Teams/put_teamsentity_id the payload ('team') example is
+            If you need to send a payload, it should be a JSON string with the keys and 
+            values as defined from the PD API reference. All the examples will have one 
+            extra top level key that should be omitted due to differences between the 
+            API and pypd. For example, in Teams/post_teams the payload ('team') 
+            example is
                 {
                   "team": {
                     "type": "team",

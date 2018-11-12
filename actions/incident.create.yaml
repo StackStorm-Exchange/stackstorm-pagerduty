@@ -22,109 +22,107 @@ parameters:
     description: A JSON object with the data that should be sent for incident creation. See action definition for details (JSONSchema).
     type: object
     required: true
-    items:
-      type: object
-      properties:
-        type:
-          type: string
-          default: incident
-          required: true
-          enum:
-            - incident
-        title:
-          description: A succinct description of the nature, symptoms, cause, or effect of the incident.
-          type: string
-          required: true
-        urgency:
-          description: The urgency of the incident
-          type: string
-          enum:
-            - high
-            - low
-        incident_key:
-          description: A string which identifies the incident. Sending subsequent requests referencing the same service and with the same incident_key will result in those requests being rejected if an open incident matches that incident_key.
-          type: string
-        service:
-          description: The incident will be created on this service.
+    properties:
+      type:
+        type: string
+        default: incident
+        required: true
+        enum:
+          - incident
+      title:
+        description: A succinct description of the nature, symptoms, cause, or effect of the incident.
+        type: string
+        required: true
+      urgency:
+        description: The urgency of the incident
+        type: string
+        enum:
+          - high
+          - low
+      incident_key:
+        description: A string which identifies the incident. Sending subsequent requests referencing the same service and with the same incident_key will result in those requests being rejected if an open incident matches that incident_key.
+        type: string
+      service:
+        description: The incident will be created on this service.
+        type: object
+        required: true
+        items:
           type: object
-          required: true
-          items:
-            type: object
-            properties:
-              id: 
-                description: service id
-                type: string
-                required: true
-              type:
-                description: the type of the service
-                type: string
-                default: service_reference
-                required: true
-                enum:
-                  - service 
-                  - service_reference  
-        priority:
-          description: The priority of this incident.
+          properties:
+            id: 
+              description: service id
+              type: string
+              required: true
+            type:
+              description: the type of the service
+              type: string
+              default: service_reference
+              required: true
+              enum:
+                - service 
+                - service_reference  
+      priority:
+        description: The priority of this incident.
+        type: object
+        items:          
           type: object
-          items:          
-            type: object
-            properties:
-              id: 
-                description: priority id
-                type: string
-                required: true
-              type:
-                description: the type of the priority
-                type: string
-                required: true
-                enum:
-                  - priority  
-                  - priority_reference  
-        body:
-          description: A JSON object containing data describing the incident.
+          properties:
+            id: 
+              description: priority id
+              type: string
+              required: true
+            type:
+              description: the type of the priority
+              type: string
+              required: true
+              enum:
+                - priority  
+                - priority_reference  
+      body:
+        description: A JSON object containing data describing the incident.
+        type: object
+        items:
           type: object
-          items:
-            type: object
-            properties:
-              type: 
-                type: string
-                default: incident_body
-                enum:
-                  - incident_body
-              details:
-                description: Additional incident details.
-                type: string
-        assignments:
-          description: Assign the incident to these assignees. Cannot be specified if an escalation policy is given.
-          type: array
-          items:
-            type: object
-            properties:
-              id: 
-                description: user id
-                type: string
-                required: true
-              type:
-                description: the type of the user
-                type: string
-                required: true
-                enum:
-                  - user  
-                  - user_reference
-        escalation_policy:
-          description: Delegate this incident to the specified escalation policy. Cannot be specified if an assignee is given.
+          properties:
+            type: 
+              type: string
+              default: incident_body
+              enum:
+                - incident_body
+            details:
+              description: Additional incident details.
+              type: string
+      assignments:
+        description: Assign the incident to these assignees. Cannot be specified if an escalation policy is given.
+        type: array
+        items:
           type: object
-          items:
-            type: object
-            properties:
-              id: 
-                description: escalation_policy id
-                type: string
-                required: true
-              type:
-                description: the type of the escalation_policy
-                type: string
-                required: true
-                enum:
-                  - escalation_policy   
-                  - escalation_policy_reference
+          properties:
+            id: 
+              description: user id
+              type: string
+              required: true
+            type:
+              description: the type of the user
+              type: string
+              required: true
+              enum:
+                - user  
+                - user_reference
+      escalation_policy:
+        description: Delegate this incident to the specified escalation policy. Cannot be specified if an assignee is given.
+        type: object
+        items:
+          type: object
+          properties:
+            id: 
+              description: escalation_policy id
+              type: string
+              required: true
+            type:
+              description: the type of the escalation_policy
+              type: string
+              required: true
+              enum:
+                - escalation_policy   
+                - escalation_policy_reference

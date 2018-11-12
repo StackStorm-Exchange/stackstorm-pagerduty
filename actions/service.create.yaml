@@ -22,176 +22,174 @@ parameters:
     description: A JSON object with the data that should be sent for service creation. See action definition for details (JSONSchema).
     type: object
     required: true
-    items:
-      type: object
-      properties:
-        type:
-          type: string
-          default: user
-          required: true
-          enum:
-            - service
-            - service_reference
-        name:
-          description: The name of the service.
-          type: string
-          required: true
-        description:
-          description: The user-provided description of the service.
-          type: string       
-        auto_resolve_timeout:
-          description: Time in seconds that an incident is automatically resolved if left open for that long (0 or null = disable feature)
-          type: integer
-        acknowledgement_timeout:
-          description: Time in seconds that an incident changes to the Triggered State after being Acknowledged. (0 or null = disable feature)
-          type: integer
-        status:
-          description: The current state of the Service.
-          type: string
-          enum:
-            - active
-            - warning
-            - critical
-            - maintenance
-            - disabled
-        alert_creation:
-          description: Whether a service creates only incidents, or both alerts and incidents.
-          type: string
-          enum:
-            - create_incidents
-            - create_alerts_and_incidents
-        alert_grouping:
-          description: Defines how alerts on this service will be automatically grouped into incidents.
-          type: string
-          enum:
-            - time
-            - intelligent
-        alert_grouping_timeout:
-          description: The duration in minutes within which to automatically group incoming alerts. (0 = Continue grouping until resolved)
-          type: integer
-        escalation_policy:
-          description: The escalation policy used by this service.
-          type: object
-          properties:
-            id:
-              description: id of the escalation policy
-              type: string
-              required: true
-            type:
-              description: type of the escalation policy
-              type: string
-              enum:
-                - escalation_policy
-                - escalation_policy_reference
-        incident_urgency_rule:
-          description: The default urgency for new incidents. Account must have the `urgencies` ability to assign a incident urgency rule.
-          type: object
-          items:
-            type: object
-            properties:
-              type:
-                description: The type of incident urgency
-                type: string
-                enum:
-                  - constant
-                  - use_support_hours
-              urgency:
-                description: The incidents' urgency, if type is constant.
-                type: string
-                enum:
-                  - low
-                  - high
-              during_support_hours:
-                description: Incidents' urgency during support hours
-                type: object
-                items:
-                  type: object
-                  properties:
-                    type:
-                      description: The type of incident urgency
-                      type: string
-                      enum:
-                        - constant
-                    urgency:
-                      description: The incidents' urgency, if type is constant.
-                      type: string
-                      enum:
-                        - low
-                        - high                   
-              outside_support_hours:
-                description: Incidents' urgency during support hours
-                type: object
-                items:
-                  type: object
-                  properties:
-                    type:
-                      description: The type of incident urgency
-                      type: string
-                      enum:
-                        - constant
-                    urgency:
-                      description: The incidents' urgency, if type is constant.
-                      type: string
-                      enum:
-                        - low
-                        - high
-        support_hours:
-          description: The support hours for the service.
+    properties:
+      type:
+        type: string
+        default: user
+        required: true
+        enum:
+          - service
+          - service_reference
+      name:
+        description: The name of the service.
+        type: string
+        required: true
+      description:
+        description: The user-provided description of the service.
+        type: string       
+      auto_resolve_timeout:
+        description: Time in seconds that an incident is automatically resolved if left open for that long (0 or null = disable feature)
+        type: integer
+      acknowledgement_timeout:
+        description: Time in seconds that an incident changes to the Triggered State after being Acknowledged. (0 or null = disable feature)
+        type: integer
+      status:
+        description: The current state of the Service.
+        type: string
+        enum:
+          - active
+          - warning
+          - critical
+          - maintenance
+          - disabled
+      alert_creation:
+        description: Whether a service creates only incidents, or both alerts and incidents.
+        type: string
+        enum:
+          - create_incidents
+          - create_alerts_and_incidents
+      alert_grouping:
+        description: Defines how alerts on this service will be automatically grouped into incidents.
+        type: string
+        enum:
+          - time
+          - intelligent
+      alert_grouping_timeout:
+        description: The duration in minutes within which to automatically group incoming alerts. (0 = Continue grouping until resolved)
+        type: integer
+      escalation_policy:
+        description: The escalation policy used by this service.
+        type: object
+        properties:
+          id:
+            description: id of the escalation policy
+            type: string
+            required: true
+          type:
+            description: type of the escalation policy
+            type: string
+            enum:
+              - escalation_policy
+              - escalation_policy_reference
+      incident_urgency_rule:
+        description: The default urgency for new incidents. Account must have the `urgencies` ability to assign a incident urgency rule.
+        type: object
+        items:
           type: object
           properties:
             type:
-              description: The type of support hours
+              description: The type of incident urgency
               type: string
               enum:
-                - fixed_time_per_day
-            time_zone:
-              description: The time zone for the support hours (America/New_York)
+                - constant
+                - use_support_hours
+            urgency:
+              description: The incidents' urgency, if type is constant.
               type: string
-            start_time:
-              description: The support hours' starting time of day (date portion is ignored) (HH:mm:ss format)
-              type: string
-            end_time:
-              description: The support hours' ending time of day (date portion is ignored) (HH:mm:ss format)
-              type: string
-            days_of_week:
-              description: array of days of week support hours apply [ISO 8601 day]
-              type: array
-        scheduled_actions:
-          description: An array containing scheduled actions for the service.
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                description: The type of schedule action. Must be set to urgency_change.
-                type: string
-                default: urgency_change
-                required: true
-                enum:
-                  - urgency_change
-              to_urgency:
-                description: Urgency level. Must be set to high.
-                type: string
-                default: high
-                required: true
-                enum:
-                  - high
-              at:
-                description: Represents when scheduled action will occur.
+              enum:
+                - low
+                - high
+            during_support_hours:
+              description: Incidents' urgency during support hours
+              type: object
+              items:
                 type: object
-                required: true
                 properties:
                   type:
-                    description: Must be set to named_time.
+                    description: The type of incident urgency
                     type: string
-                    default: named_time
-                    required: true
                     enum:
-                      - named_time
-                  name:
-                    description: Designates either the start or the end of support hours.
+                      - constant
+                  urgency:
+                    description: The incidents' urgency, if type is constant.
                     type: string
-                    required: true
                     enum:
-                      - support_hours_start
-                      - support_hours_end
+                      - low
+                      - high                   
+            outside_support_hours:
+              description: Incidents' urgency during support hours
+              type: object
+              items:
+                type: object
+                properties:
+                  type:
+                    description: The type of incident urgency
+                    type: string
+                    enum:
+                      - constant
+                  urgency:
+                    description: The incidents' urgency, if type is constant.
+                    type: string
+                    enum:
+                      - low
+                      - high
+      support_hours:
+        description: The support hours for the service.
+        type: object
+        properties:
+          type:
+            description: The type of support hours
+            type: string
+            enum:
+              - fixed_time_per_day
+          time_zone:
+            description: The time zone for the support hours (America/New_York)
+            type: string
+          start_time:
+            description: The support hours' starting time of day (date portion is ignored) (HH:mm:ss format)
+            type: string
+          end_time:
+            description: The support hours' ending time of day (date portion is ignored) (HH:mm:ss format)
+            type: string
+          days_of_week:
+            description: array of days of week support hours apply [ISO 8601 day]
+            type: array
+      scheduled_actions:
+        description: An array containing scheduled actions for the service.
+        type: array
+        items:
+          type: object
+          properties:
+            type:
+              description: The type of schedule action. Must be set to urgency_change.
+              type: string
+              default: urgency_change
+              required: true
+              enum:
+                - urgency_change
+            to_urgency:
+              description: Urgency level. Must be set to high.
+              type: string
+              default: high
+              required: true
+              enum:
+                - high
+            at:
+              description: Represents when scheduled action will occur.
+              type: object
+              required: true
+              properties:
+                type:
+                  description: Must be set to named_time.
+                  type: string
+                  default: named_time
+                  required: true
+                  enum:
+                    - named_time
+                name:
+                  description: Designates either the start or the end of support hours.
+                  type: string
+                  required: true
+                  enum:
+                    - support_hours_start
+                    - support_hours_end
