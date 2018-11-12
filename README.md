@@ -1,7 +1,5 @@
 # PagerDuty
 
-#Pending rewrite
-
 This pack enables the integration of PagerDuty into StackStorm. 
 
 # Configuration
@@ -15,7 +13,7 @@ Alternatively, you can copy the example configuration in
 to `/opt/stackstorm/configs/pagerduty.yaml` and edit as required.
 
 * `api_key:` API-KEY
-* `service_key:` SERVICE-KEY
+* `service_key:` SERVICE-KEY (Used as default for incident creation via the Events API)
 * `debug:` optional debug flag. Set to True for additional logging
 
 You can also use dynamic values from the datastore. See the
