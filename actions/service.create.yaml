@@ -24,18 +24,17 @@ parameters:
     required: true
     items:
       type: object
+      required: ["type","name"]
       properties:
         type:
           type: string
           default: user
-          required: true
           enum:
             - service
             - service_reference
         name:
           description: The name of the service.
           type: string
-          required: true
         description:
           description: The user-provided description of the service.
           type: string       
@@ -72,11 +71,11 @@ parameters:
         escalation_policy:
           description: The escalation policy used by this service.
           type: object
+          required: ["id"]
           properties:
             id:
               description: id of the escalation policy
               type: string
-              required: true
             type:
               description: type of the escalation policy
               type: string
@@ -161,37 +160,34 @@ parameters:
           type: array
           items:
             type: object
+            required: ["type", "to_urgency", "at"]
             properties:
               type:
                 description: The type of schedule action. Must be set to urgency_change.
                 type: string
                 default: urgency_change
-                required: true
                 enum:
                   - urgency_change
               to_urgency:
                 description: Urgency level. Must be set to high.
                 type: string
                 default: high
-                required: true
                 enum:
                   - high
               at:
                 description: Represents when scheduled action will occur.
                 type: object
-                required: true
+                required: ["type", "name"]
                 properties:
                   type:
                     description: Must be set to named_time.
                     type: string
                     default: named_time
-                    required: true
                     enum:
                       - named_time
                   name:
                     description: Designates either the start or the end of support hours.
                     type: string
-                    required: true
                     enum:
                       - support_hours_start
                       - support_hours_end

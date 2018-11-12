@@ -24,85 +24,78 @@ parameters:
     required: true
     items:
       type: object
+      required: ["type", "schedule_layers"]
       properties:
         type:
           type: string
           default: schedule
-          required: true
           enum:
             - schedule 
             - schedule_reference
-      schedule_layers:
-        description:
-        type: array
-        required: true
-        items:
-          type: object
-          properties:
-            start:
-              description: The start time of this layer. (ISO8601 compliant timestamp)
-              type: string
-              required: true
-            end:
-              description: The end time of this layer. (ISO8601 compliant timestamp)
-              type: string
-            rotation_virtual_start:
-              description: The effective start time of the layer. This can be before the start time of the schedule. (ISO8601 compliant timestamp)
-              type: string
-              required: true
-            rotation_turn_length_seconds:
-              description: The duration of each on-call shift in seconds.
-              type: integer
-              default: 604800
-              required: true
-            name:
-              description: The name of the schedule layer.
-              type: string
-            users:
-              description: The ordered list of users on this layer. The position of the user on the list determines their order in the layer.
-              type: array
-              required: true
-              items:
-                type: object
-                properties:
-                  user:
-                    type: object
-                    required: true
-                    items:
+        schedule_layers:
+          description: 
+          type: array
+          items:
+            type: object
+            required: ["start", "rotation_virtual_start", "rotation_turn_length_seconds", "users"]
+            properties: A list of schedule layers.
+              start:
+                description: The start time of this layer. (ISO8601 compliant timestamp)
+                type: string
+              end:
+                description: The end time of this layer. (ISO8601 compliant timestamp)
+                type: string
+              rotation_virtual_start:
+                description: The effective start time of the layer. This can be before the start time of the schedule. (ISO8601 compliant timestamp)
+                type: string
+              rotation_turn_length_seconds:
+                description: The duration of each on-call shift in seconds.
+                type: integer
+                default: 604800
+              name:
+                description: The name of the schedule layer.
+                type: string
+              users:
+                description: The ordered list of users on this layer. The position of the user on the list determines their order in the layer.
+                type: array
+                items:
+                  type: object
+                  required: ["user"]
+                  properties:
+                    user:
                       type: object
-                      properties:
-                        id:
-                          description: id of the user
-                          type: string
-                          required: true
-                        type:
-                          description: user type
-                          type: string
-                          required: true
-                          enum:
-                            - user
-                            - user_reference
-            restrictions:
-              description: An array of restrictions for the layer. A restriction is a limit on which period of the day or week the schedule layer can accept assignments.
-              type: array
-              items:
-                type: object
-                properties:
-                  type:
-                    description: Specify the types of `restriction`.
-                    type: string
-                    required: true
-                    enum:
-                      - daily_restriction 
-                      - weekly_restriction
-                  duration_seconds:
-                    description: The duration of the restriction in seconds.
-                    type: integer
-                    required: true
-                  start_time_of_day:
-                    description: The start time in HH:mm:ss format.
-                    type: string
-                    required: true
-                  start_day_of_week:
-                    description: Only required for use with a `weekly_restriction` restriction type. The first day of the weekly rotation schedule as [ISO 8601 day]
-                    type: integer
+                      items:
+                        type: object
+                        required: ["id", "type"]
+                        properties:
+                          id:
+                            description: id of the user
+                            type: string
+                          type:
+                            description: user type
+                            type: string
+                            enum:
+                              - user
+                              - user_reference
+              restrictions:
+                description: An array of restrictions for the layer. A restriction is a limit on which period of the day or week the schedule layer can accept assignments.
+                type: array
+                items:
+                  type: object
+                  required: ["type", "duration_seconds", "start_time_of_day"]
+                  properties:
+                    type:
+                      description: Specify the types of `restriction`.
+                      type: string
+                      enum:
+                        - daily_restriction 
+                        - weekly_restriction
+                    duration_seconds:
+                      description: The duration of the restriction in seconds.
+                      type: integer
+                    start_time_of_day:
+                      description: The start time in HH:mm:ss format.
+                      type: string
+                    start_day_of_week:
+                      description: Only required for use with a `weekly_restriction` restriction type. The first day of the weekly rotation schedule as [ISO 8601 day]
+                      type: integer

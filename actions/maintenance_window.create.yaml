@@ -24,22 +24,20 @@ parameters:
     required: true
     items:
       type: object
+      required: ["type", "start_time", "end_time"]
       properties:
         type:
           type: string
           default: incident
-          required: true
           enum:
             - maintenance_window
             - maintenance_window_reference
         start_time:
           description: This maintenance window's start time. This is when the services will stop creating incidents. If this date is in the past, it will be updated to be the current time. (ISO8601 compliant timestamp)
           type: string
-          required: true
         end_time:          
           description: This maintenance window's end time. This is when the services will start creating incidents again. This date must be in the future and after the `start_time`. (ISO8601 compliant timestamp)
           type: string
-          required: true
         description:
           description: A description for this maintenance window.
           type: string

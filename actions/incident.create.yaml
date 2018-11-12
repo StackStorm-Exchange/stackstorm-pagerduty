@@ -24,17 +24,16 @@ parameters:
     required: true
     items:
       type: object
+      required: ["type", "title", "service"]
       properties:
         type:
           type: string
           default: incident
-          required: true
           enum:
             - incident
         title:
           description: A succinct description of the nature, symptoms, cause, or effect of the incident.
           type: string
-          required: true
         urgency:
           description: The urgency of the incident
           type: string
@@ -47,18 +46,16 @@ parameters:
         service:
           description: The incident will be created on this service.
           type: object
-          required: true
           items:
             type: object
+            required: ["id", "type"]
             properties:
               id: 
                 description: service id
                 type: string
-                required: true
               type:
                 description: the type of the service
                 type: string
-                required: true
                 enum:
                   - service 
                   - service_reference  
@@ -67,15 +64,14 @@ parameters:
           type: object
           items:          
             type: object
+            required: ["id", "type"]
             properties:
               id: 
                 description: priority id
                 type: string
-                required: true
               type:
                 description: the type of the priority
                 type: string
-                required: true
                 enum:
                   - priority  
                   - priority_reference  
@@ -97,15 +93,14 @@ parameters:
           type: array
           items:
             type: object
+            required: ["id", "type"]
             properties:
               id: 
                 description: user id
                 type: string
-                required: true
               type:
                 description: the type of the user
                 type: string
-                required: true
                 enum:
                   - user  
                   - user_reference
@@ -114,15 +109,14 @@ parameters:
           type: object
           items:
             type: object
+            required: ["id", "type"]
             properties:
               id: 
                 description: escalation_policy id
                 type: string
-                required: true
               type:
                 description: the type of the escalation_policy
                 type: string
-                required: true
                 enum:
                   - escalation_policy   
                   - escalation_policy_reference

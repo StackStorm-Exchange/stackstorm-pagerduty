@@ -8,18 +8,17 @@ class PdBaseAction(Action):
     """ Base Pagerduty class for all actions
     """
 
-    # if entity is None:
-    #   raise InvalidArguments(entity)
-
     def __init__(self, config):
         """ init method, run at class creation
         """
         super(PdBaseAction, self).__init__(config)
+        self.logger.debug('Instantiating PdBaseAction()')
         self.pd = self._init_client()
 
     def _init_client(self):
         """ init_client method, run at class creation
         """
+        self.logger.debug('Initializing pypd client')
         pypd.api_key = self.config['api_key']
         pypd.service_key = self.config['service_key']
         return pypd
@@ -27,9 +26,13 @@ class PdBaseAction(Action):
     def fetch(self, entity=None, entity_id=None, **kwargs):
         """ base fetch() method defined in pypd.entity.fetch() usable by most entities
         """
-        if entity_id is None:
-            raise InvalidArguments(entity_id)
+        check_inputs = {}  # Placeholder for input checking
+        check_inputs['entity_id'] = kwargs.get('entity_id', None)
+        self.check_required(check_inputs):
+
+        self.logger.debug('Running pypd fetch() for entity {}'.format(entity))
         fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
+        self.logger.debug('pypd find() finished')
         # use pypd method entity.json to return the entity as json
         return fetch.json
 
@@ -38,10 +41,14 @@ class PdBaseAction(Action):
         """
         if 'maximum' not in kwargs:
             # if maximum was ommited from the action, or didn't have a default,
-            # make sure we don't have a rediculous response
+            # make sure we don't have a rediculously large response
             kwargs['maximum'] = 25
+            self.logger.debug(
+                'No maximum set for find(). Setting "maximum=25 to limit response size')
 
+        self.logger.debug('Running pypd find() for entity {}'.format(entity))
         find = getattr(self.pd, entity).find(**kwargs)
+        self.logger.debug('pypd find() finished')
         found = []
         for f in find:
             found.append(f.json)
@@ -52,9 +59,13 @@ class PdBaseAction(Action):
     def delete(self, entity=None, entity_id=None, **kwargs):
         """ base delete() method defined in pypd.entity.delete() usable by most entities
         """
-        if entity_id is None:
-            raise InvalidArguments(entity_id)
+        check_inputs = {}  # Placeholder for input checking
+        check_inputs['entity_id'] = kwargs.get('entity_id', None)
+        self.check_required(check_inputs):
+
+        self.logger.debug('Running pypd delete() for entity {}'.format(entity))
         delete = getattr(self.pd, entity).delete(id=entity_id, **kwargs)
+        self.logger.debug('pypd delete() finished')
         if delete is True:
             return json.loads('{"deleted":true}')
         else:
@@ -64,13 +75,16 @@ class PdBaseAction(Action):
     def create(self, entity=None, from_email=None, payload=None, **kwargs):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
-        if from_email is None:
-            raise InvalidArguments(from_email)
-        if payload is None:
-            raise InvalidArguments(payload)
+        check_inputs = {}  # Placeholder for input checking
+        check_inputs['from_email'] = kwargs.get('from_email', None)
+        check_inputs['payload'] = kwargs.get('payload', None)
+        self.check_required(check_inputs):
 
+        self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
             data=payload, from_email=from_email, **kwargs)
+
+        self.logger.debug('pypd create() finished')
         # use pypd method entity.json to return the entity as json
         return create.json
 
@@ -105,21 +119,66 @@ class PdBaseAction(Action):
                 }
         """
 
-        # check for required fields
-        if not entity_id:
-            raise InvalidArguments(entity_id)
-        # if there is a specific ID for the method being called, it should be passed as `resource_id` and we
-        # will change it to `id` which is what pypd expects.
+        # add required fields to be checked
+        check_inputs = {}  # Placeholder for input checking
+        check_inputs['entity_id'] = kwargs.get('entity_id', None)
+        check_inputs['method'] = kwargs.get('method', None)
+
+        # if there is a specific ID for the method being called, it should be passed as
+        # `resource_id` and we will change it to `id` which is what pypd expects.
         if kwargs.get('resource_id', None):
+            check_inputs['resource_id'] = kwargs.get('resource_id', None)
             kwargs['id'] = kwargs.pop('resource_id')
 
+        # check for required fields
+        self.check_required(check_inputs):
+
+            # We have to create an object to be referenced by the method.
+            # This is how pypd is designed to work
         source = getattr(self.pd, entity).fetch(id=entity_id)
+        # Call the method based on the entity object and pass any kwargs
         entity_id_method = getattr(source, method)(**kwargs)
 
         # delete methods based on a user id will return null/None when successful.
         # Add useful output consistent with delete()
         if entity_id_method is None:
+            self.logger.debug(
+                'Delete operation successful. (response from pypd was None)')
             return json.loads('{"deleted":true}')
 
         # use pypd method entity.json to return the entity as json
         return entity_id_method
+
+    def check_entity(self, entity=None):
+        self.logger.debug('Checking if entity is defined')
+        if entity is None:
+            self.logger.error(
+                'entity is a required field for all operations and was not found. Exiting...')
+            exit(1)
+        return True
+
+    def check_method(self, method=None):
+        self.logger.debug('Checking if method is defined')
+        if method is None:
+            self.logger.error(
+                'method is a required field for all operations and was not found. Exiting...')
+            exit(1)
+        return True
+
+    def check_required(self, check=None):
+        """ Evaluate all the keys in the dict 'check' to ensure it exists and 
+            if it is None, raise errors, log, and exit.
+        """
+        self.logger.debug(
+            'running check_required(); inputs: {}'.format(json.dumps(check)))
+        if check is None:
+            self.logger.error(
+                'Required fields missing (None received); check_required()')
+            exit(1)
+
+        for k, v in check.iteritems():
+            if v is None:
+                self.logger.error(
+                    '{} is a required field; check_required()'.format(k))
+                exit(1)
+        return True
