@@ -147,8 +147,10 @@ class PdBaseAction(Action):
 
         # We have to create an object to be referenced by the method.
         # This is how pypd is designed to work
+        self.logger.debug('running a fetch() on {}:{}'.format(entity, entity_id))
         source = getattr(self.pd, entity).fetch(id=entity_id)
         # Call the method based on the entity object and pass any kwargs
+        self.logger.debug('Running pypd {} on {}:{}'.format(method, entity, entity_id))
         entity_id_method = getattr(source, method)(**kwargs)
 
         # delete methods based on a user id will return null/None when successful.

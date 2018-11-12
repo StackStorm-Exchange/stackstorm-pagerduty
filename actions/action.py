@@ -20,16 +20,14 @@ class PdAction(PdBaseAction):
         self.check_method(method)
         # Other data validation checks are done in PdBaseAction() methods
 
-        check_inputs = {}  # Placeholder for input checking
-
         # Well known pypd methods in pypd.entity
         if method == 'find':  # HTTP_GET
-            self.logger.debug('Running a find type of method')
+            self.logger.debug('Running a find() method')
 
             return (True, self.find(entity=entity, **kwargs))
 
         elif method == 'fetch':  # HTTP_GET
-            self.logger.debug('Running a fetch type of method')
+            self.logger.debug('Running a fetch() method')
 
             # We need to know the id of the resource we are fetching.
             # Define 'entity_id' in your action
@@ -41,7 +39,7 @@ class PdAction(PdBaseAction):
                 entity=entity, entity_id=entity_id, **kwargs))
 
         elif method == 'delete':  # HTTP_DELETE
-            self.logger.debug('Running a delete type of method')
+            self.logger.debug('Running a delete() method')
 
             # We need to know the id of the resource we are deleting.
             # Define 'entity_id' in your action
@@ -53,7 +51,7 @@ class PdAction(PdBaseAction):
                 entity=entity, entity_id=entity_id, **kwargs))
 
         elif method == 'create':  # HTTP_POST
-            self.logger.debug('Running a create type of method')
+            self.logger.debug('Running a create() method')
 
             from_email = str(kwargs.pop('from_email', None))
             self.logger.debug(
@@ -67,9 +65,17 @@ class PdAction(PdBaseAction):
             return (True, self.create(
                 entity=entity, from_email=from_email, payload=data, **kwargs))
 
-        # other id based methods
+        """ If there ends up being a spcific method that needs some special handling
+            you can either add another `elif` condition here. You COULD create a
+            seperate `specfic_action.py` that instantiates PdBaseAction() directly,
+            but it's preferable for consistency to keep direct action logic here.
+        """
+        # elif method == '<another>':
+           # ...
+
+        # other entity_id based methods
         else:
-            self.logger.debug('Running an entity specific type of method')
+            self.logger.debug('Running an entity_id specific method')
 
             # We need to know the entity_id of the resource to interact with
             entity_id = str(kwargs.pop('entity_id', None))

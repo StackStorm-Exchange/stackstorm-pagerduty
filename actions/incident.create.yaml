@@ -1,4 +1,4 @@
-description: "create an incident"
+description: "create an incident (complex)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
