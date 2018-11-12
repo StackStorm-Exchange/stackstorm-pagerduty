@@ -24,11 +24,11 @@ parameters:
     required: true
     items:
       type: object
-      required: ["type","label","address"]
       properties:
         type:
           description: The type of contact method
           type: string
+          required: true
           enum:
             - email_contact_method
             - phone_contact_method
@@ -37,6 +37,8 @@ parameters:
         label:
           description: The label (e.g., "Work", "Mobile", etc.).
           type: string
+          required: true
         address:
           description: "The 'address' to deliver to: email, phone number, etc., depending on the type."
           type: string
+          required: true

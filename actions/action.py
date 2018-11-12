@@ -33,7 +33,7 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are fetching. Define 'entity_id' in
             # your action
             check_inputs['entity_id'] = kwargs.get('entity_id', None)
-            self.check_required(check_inputs):
+            self.check_required(check_inputs)
 
             entity_id = str(kwargs.pop('entity_id'))
             return (True, self.fetch(entity=entity, entity_id=entity_id, **kwargs))
@@ -44,7 +44,7 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are deleting. Define 'entity_id' in
             # your action
             check_inputs['entity_id'] = kwargs.get('entity_id', None)
-            self.check_required(check_inputs):
+            self.check_required(check_inputs)
 
             entity_id = str(kwargs.pop('entity_id'))
 
@@ -57,7 +57,7 @@ class PdAction(PdBaseAction):
             # and that a payload (data) is present
             check_inputs['from_email'] = kwargs.get('from_email', None)
             check_inputs['data'] = kwargs.get('data', None)
-            self.check_required(check_inputs):
+            self.check_required(check_inputs)
 
             from_email = str(kwargs.pop('from_email'))
             self.logger.debug(
@@ -76,7 +76,7 @@ class PdAction(PdBaseAction):
             # We need to know the entity_id of the resource we are interacting
             # with
             check_inputs['entity_id'] = kwargs.get('entity_id', None)
-            self.check_required(check_inputs):
+            self.check_required(check_inputs)
 
             entity_id = str(kwargs.pop('entity_id'))
 

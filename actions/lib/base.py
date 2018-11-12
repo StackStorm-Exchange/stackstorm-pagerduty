@@ -28,7 +28,7 @@ class PdBaseAction(Action):
         """
         check_inputs = {}  # Placeholder for input checking
         check_inputs['entity_id'] = kwargs.get('entity_id', None)
-        self.check_required(check_inputs):
+        self.check_required(check_inputs)
 
         self.logger.debug('Running pypd fetch() for entity {}'.format(entity))
         fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
@@ -61,7 +61,7 @@ class PdBaseAction(Action):
         """
         check_inputs = {}  # Placeholder for input checking
         check_inputs['entity_id'] = kwargs.get('entity_id', None)
-        self.check_required(check_inputs):
+        self.check_required(check_inputs)
 
         self.logger.debug('Running pypd delete() for entity {}'.format(entity))
         delete = getattr(self.pd, entity).delete(id=entity_id, **kwargs)
@@ -78,7 +78,7 @@ class PdBaseAction(Action):
         check_inputs = {}  # Placeholder for input checking
         check_inputs['from_email'] = kwargs.get('from_email', None)
         check_inputs['payload'] = kwargs.get('payload', None)
-        self.check_required(check_inputs):
+        self.check_required(check_inputs)
 
         self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
@@ -131,7 +131,7 @@ class PdBaseAction(Action):
             kwargs['id'] = kwargs.pop('resource_id')
 
         # check for required fields
-        self.check_required(check_inputs):
+        self.check_required(check_inputs)
 
             # We have to create an object to be referenced by the method.
             # This is how pypd is designed to work

@@ -24,17 +24,18 @@ parameters:
     required: true
     items:
       type: object
-      required: ["type", "name", "escalation_rules"]
       properties:
         type:
           type: string
           default: escalation_policy 
+          required: true
           enum:
             - escalation_policy 
             - escalation_policy_reference
         name:
           description: The name of the escalation_policy.
           type: string
+          required: true
         description:
           description: Escalation policy description.
           type: string
@@ -47,29 +48,33 @@ parameters:
         escalation_rules:
           description: list of escalation rules in this escalation policy
           type: array
+          required: true
           items:
             type: object
-            required: ["id", "escalation_delay_in_minutes", "targets"]
             properties:
               id:
                 description: escalation_rule id
                 type: string
+                required: true
               escalation_delay_in_minutes:
                 description: The number of minutes before an unacknowledged incident escalates away from this rule.
                 type: integer
+                required: true
               targets:
                 description: The targets an incident should be assigned to upon reaching this rule.
                 type: array
+                required: true
                 items:
                   type: object
-                  required: ["id", "type"]
                   properties:
                     id: 
                       description: escalation target id
                       type: string
+                      required: true
                     type:
                       description: the type of the escalation target
                       type: string
+                      required: true
                       enum:
                         - user
                         - schedule
