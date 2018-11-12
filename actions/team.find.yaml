@@ -1,12 +1,12 @@
-description: "find users by criteria"
+description: "find teams by criteria"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.find
+name: team.find
 parameters:
   entity:
     description: pypd entity
-    default: User
+    default: Team
     immutable: true
     type: string
   method:
@@ -18,9 +18,6 @@ parameters:
     description: limit number of entries potentially returned
     default: 25
     type: integer
-  team_ids:
-    description: array of team ids to narrow search to
-    type: array
   query:
     description: a substring search of the 'name' and 'email' field
     type: string

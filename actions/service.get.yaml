@@ -1,12 +1,12 @@
-description: "get user by entity_id"
+description: "get service by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.get
+name: service.get
 parameters:
   entity:
     description: pypd entity
-    default: User
+    default: Service
     immutable: true
     type: string
   method:
@@ -15,6 +15,9 @@ parameters:
     immutable: true
     type: string
   entity_id:
-    description: translates to the 'id' key for a user object in PagerDuty
+    description: translates to the 'id' key for a service object in PagerDuty
     type: string
-    required: true
+    required: true    
+  include:
+    description: Array of additional details to include.
+    type: array

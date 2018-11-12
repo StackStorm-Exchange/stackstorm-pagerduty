@@ -1,0 +1,112 @@
+description: "create an escalation_policy"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: escalation_policy.create
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: EscalationPolicy
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: create
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  data:
+    description: A JSON object with the data that should be sent for escalation_policy creation. See action definition for details (JSONSchema).
+    type: object
+    required: true
+    items:
+      type: object
+      properties:
+        type:
+          type: string
+          default: escalation_policy 
+          required: true
+          enum:
+            - escalation_policy 
+            - escalation_policy_reference
+        name:
+          description: The name of the escalation_policy.
+          type: string
+          required: true
+        description:
+          description: Escalation policy description.
+          type: string
+        num_loops:
+          description: The number of times the escalation policy will repeat after reaching the end of its escalation.
+          type: integer
+        repeat_enabled:
+          description: Whether or not to allow this policy to repeat its escalation rules after the last rule is finished.
+          type: boolean
+        escalation_rules:
+          description: list of escalation rules in this escalation policy
+          type: array
+          required: true
+          items:
+            type: object
+            properties:
+              id:
+                description: escalation_rule id
+                type: string
+                required: true
+              escalation_delay_in_minutes:
+                description: The number of minutes before an unacknowledged incident escalates away from this rule.
+                type: integer
+                required: true
+              targets:
+                description: The targets an incident should be assigned to upon reaching this rule.
+                type: array
+                required: true
+                items:
+                  type: object
+                  properties:
+                    id: 
+                      description: escalation target id
+                      type: string
+                      required: true
+                    type:
+                      description: the type of the escalation target
+                      type: string
+                      required: true
+                      enum:
+                        - user
+                        - schedule
+                        - user_reference 
+                        - schedule_reference
+        services:
+          description: Services associated with the policy
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: service id
+                type: string
+              type:
+                description: the type of the service
+                type: string
+                enum:
+                  - service
+                  - service_reference
+        teams:
+          description: Teams associated with the policy. Account must have the `teams` ability to use this parameter.
+          type: array 
+          item:
+            type: object
+            properties:
+              id:
+                description: team id
+                type: string
+              type:
+                description: the type of the team
+                type: string
+                enum:
+                  - team
+                  - team_reference             

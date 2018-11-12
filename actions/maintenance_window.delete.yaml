@@ -1,13 +1,13 @@
-description: "delete a user by entity_id"
+description: "delete (not started) or end (started / finished) a maintenance_window by id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: maintenance_window.delete
 parameters:
   entity:
     description: pypd entity
     type: string
-    default: User
+    default: MaintenanceWindow
     immutable: true
   method:
     description: pypd entity method
@@ -15,6 +15,6 @@ parameters:
     default: delete
     immutable: true
   entity_id:
-    description: translates to the 'id' key for a user object in PagerDuty
+    description: translates to the 'id' key for a maintenance_window object in PagerDuty
     type: string
     required: true

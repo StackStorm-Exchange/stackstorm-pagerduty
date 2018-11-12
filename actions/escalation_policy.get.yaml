@@ -1,20 +1,20 @@
-description: "delete a user by entity_id"
+description: "get escalation_policy by id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: escalation_policy.get
 parameters:
   entity:
     description: pypd entity
-    type: string
-    default: User
+    default: EscalationPolicy
     immutable: true
+    type: string
   method:
     description: pypd entity method
-    type: string
-    default: delete
+    default: fetch
     immutable: true
+    type: string
   entity_id:
-    description: translates to the 'id' key for a user object in PagerDuty
+    description: translates to the 'id' key for a escalation_policy object in PagerDuty
     type: string
     required: true

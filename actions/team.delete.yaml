@@ -1,13 +1,13 @@
-description: "delete a user by entity_id"
+description: "delete a team by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.delete
+name: team.delete
 parameters:
   entity:
     description: pypd entity
     type: string
-    default: User
+    default: Team
     immutable: true
   method:
     description: pypd entity method
@@ -15,6 +15,6 @@ parameters:
     default: delete
     immutable: true
   entity_id:
-    description: translates to the 'id' key for a user object in PagerDuty
+    description: translates to the 'id' key for a team object in PagerDuty
     type: string
     required: true

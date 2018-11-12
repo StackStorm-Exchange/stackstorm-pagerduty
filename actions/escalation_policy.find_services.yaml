@@ -1,20 +1,20 @@
-description: "get user by entity_id"
+description: "get services for escalation_policy by id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: user.get
+name: escalation_policy.find_services
 parameters:
   entity:
     description: pypd entity
-    default: User
+    default: EscalationPolicy
     immutable: true
     type: string
   method:
     description: pypd entity method
-    default: fetch
+    default: services
     immutable: true
     type: string
   entity_id:
-    description: translates to the 'id' key for a user object in PagerDuty
+    description: translates to the 'id' key for a escalation_policy object in PagerDuty
     type: string
     required: true

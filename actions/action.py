@@ -64,8 +64,4 @@ class PdAction(PdBaseAction):
                 return (False, "entity_id is a required field. Needed for %s operations" % method)
             entity_id = str(kwargs.pop('entity_id'))
 
-            # if kwargs.get('_id', None):
-            #     kwargs['id'] = str(kwargs.pop('_id'))
-            # See note in lib/base/py on why this is happening.
-
             return (True, self.entity_id_method(entity=entity, method=method, entity_id=entity_id, **kwargs))
