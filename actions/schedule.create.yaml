@@ -31,7 +31,6 @@ parameters:
           - schedule 
           - schedule_reference
       schedule_layers:
-        description:
         type: array
         required: true
         items:
