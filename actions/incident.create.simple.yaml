@@ -30,7 +30,7 @@ parameters:
     description: Details for the incident
     type: string
   data:
-    description: A JSON object with the data that should be sent for incident creation. See action definition for details (JSONSchema).
+    description: Full formatting of data the way it needs to be interpreted
     type: object
     immutable: true
     default: 
