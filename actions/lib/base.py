@@ -60,7 +60,7 @@ class PdBaseAction(Action):
         """ base delete() method defined in pypd.entity.delete() usable by most entities
         """
         check_inputs = {}  # Placeholder for input checking
-        check_inputs['entity_id'] = kwargs.get('entity_id', None)
+        check_inputs['entity_id'] = entity_id
         self.check_required(check_inputs)
 
         self.logger.debug('Running pypd delete() for entity {}'.format(entity))
@@ -76,9 +76,22 @@ class PdBaseAction(Action):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
         check_inputs = {}  # Placeholder for input checking
-        check_inputs['from_email'] = kwargs.get('from_email', None)
-        check_inputs['payload'] = kwargs.get('payload', None)
+        # We need to know the email of the user making the resource
+        # and that a payload (data) is present
+        check_inputs['from_email'] = from_email
+        check_inputs['payload'] = payload
         self.check_required(check_inputs)
+
+        """ Beacuse of wild inconsistencies with the pypd pack in how it handles data,
+            we must duplicate 'from_email' as 'from' because sometimes it's one or the other.
+            It's not great, but we have to send it as both.
+            See Incident.create Vs User.create in pypd
+            
+            Yes, Pagerduty's API literally uses the well known standard
+            HTTP header field 'From'... I'm not making this up.
+            https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
+        """
+        kwargs['add_headers'] = ('{"from": "%s"}' % from_email)
 
         self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
@@ -121,20 +134,19 @@ class PdBaseAction(Action):
 
         # add required fields to be checked
         check_inputs = {}  # Placeholder for input checking
-        check_inputs['entity_id'] = kwargs.get('entity_id', None)
-        check_inputs['method'] = kwargs.get('method', None)
+        check_inputs['entity_id'] = entity_id
 
         # if there is a specific ID for the method being called, it should be passed as
         # `resource_id` and we will change it to `id` which is what pypd expects.
         if kwargs.get('resource_id', None):
             check_inputs['resource_id'] = kwargs.get('resource_id', None)
-            kwargs['id'] = kwargs.pop('resource_id')
+            kwargs['id'] = kwargs.pop('resource_id', None)
 
         # check for required fields
         self.check_required(check_inputs)
 
-            # We have to create an object to be referenced by the method.
-            # This is how pypd is designed to work
+        # We have to create an object to be referenced by the method.
+        # This is how pypd is designed to work
         source = getattr(self.pd, entity).fetch(id=entity_id)
         # Call the method based on the entity object and pass any kwargs
         entity_id_method = getattr(source, method)(**kwargs)
@@ -170,7 +182,7 @@ class PdBaseAction(Action):
             if it is None, raise errors, log, and exit.
         """
         self.logger.debug(
-            'running check_required(); inputs: {}'.format(json.dumps(check)))
+            'running check_required(); inputs: {}'.format(check))
         if check is None:
             self.logger.error(
                 'Required fields missing (None received); check_required()')

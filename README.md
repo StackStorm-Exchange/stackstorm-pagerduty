@@ -2,47 +2,13 @@
 
 #Pending rewrite
 
-This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
-
-1. List all the open incidents on PD (for a given api key)
-
-```
-st2 run pagerduty.get_open_incidents
-```
-
-2. Launch an incident by giving its details and description
-
-```
-st2 run pagerduty.launch_incident description='<incident title>'
-```
-
-3. Send acknowledgment of any incident(s)
-
-```
-st2 run pagerduty.ack_incident email='<email>' ids=<comma separated list of incident ids>
-```
-
-4. Resolve acknowledged incident(s)
-
-```
-st2 run pagerduty.resolve_incident email='<email>' ids=<comma separated list of incident ids>
-```
-
-5. User Management can be carried out by the following actions
-
-```
-st2 run pagerduty.list_users
-st2 run pagerduty.create_user email='<email>'
-st2 run pagerduty.delete_user email='<email>' name='Bob' role='user' job_title='Bob'
-```
+This pack enables the integration of PagerDuty into StackStorm. 
 
 # Configuration
 
 To create and install the config file, you can run:
 
-```
-st2 pack config pagerduty
-```
+`st2 pack config pagerduty`
 
 Alternatively, you can copy the example configuration in
 [pagerduty.yaml.example](./pagerduty.yaml.example)
@@ -85,3 +51,9 @@ The following chatops action aliases are defined:
 
 `{{ids}}` is a comma separated list of incident ids, and `{{email}}` is the email address of the
 user acknowledging or resolving the incident. `{{description}}` is the title of the incident.
+
+# Running Create actions
+
+Create actions require a JSON object with the details for the resource being created. 
+A JSON Schema is present on all `create` actions to help enforce requirements and inform structure.
+These schemas match the PagerDuty API 'request schema' documentation.

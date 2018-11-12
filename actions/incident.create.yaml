@@ -58,6 +58,7 @@ parameters:
               type:
                 description: the type of the service
                 type: string
+                default: service_reference
                 required: true
                 enum:
                   - service 
@@ -87,6 +88,7 @@ parameters:
             properties:
               type: 
                 type: string
+                default: incident_body
                 enum:
                   - incident_body
               details:
