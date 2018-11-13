@@ -7,7 +7,7 @@ parameters:
   entity:
     description: pypd entity
     type: string
-    default: Notification
+    default: OnCall
     immutable: true
   method:
     description: pypd entity method
