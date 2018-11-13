@@ -32,8 +32,7 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are fetching.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug(
-                'Extracting entity_id from kwargs: {}'.format(entity_id))
+            self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
 
             return (True, self.fetch(
                 entity=entity, entity_id=entity_id, **kwargs))
@@ -44,8 +43,7 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are deleting.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug(
-                'Extracting entity_id from kwargs: {}'.format(entity_id))
+            self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
 
             return (True, self.delete(
                 entity=entity, entity_id=entity_id, **kwargs))
@@ -54,9 +52,8 @@ class PdAction(PdBaseAction):
             self.logger.debug('Running a create() method')
 
             from_email = str(kwargs.pop('from_email', None))
-            self.logger.debug(
-                'Extracting from_email from kwargs: {}'.format(from_email))
-            
+            self.logger.debug('Extracting from_email from kwargs: {}'.format(from_email))
+
             # data should be a JSON object with a defined JSONschema in the
             # action to enforce API compliance.
             data = kwargs.pop('data', None)
@@ -65,13 +62,13 @@ class PdAction(PdBaseAction):
             return (True, self.create(
                 entity=entity, from_email=from_email, payload=data, **kwargs))
 
-        """ If there ends up being a spcific method that needs some special handling
-            you can either add another `elif` condition here. You COULD create a
-            seperate `specfic_action.py` that instantiates PdBaseAction() directly,
-            but it's preferable for consistency to keep direct action logic here.
-        """
+        # If there ends up being a spcific method that needs some special handling
+        # you can either add another `elif` condition here. You COULD create a
+        # seperate `specfic_action.py` that instantiates PdBaseAction() directly,
+        # but it's preferable for consistency to keep direct action logic here.
+
         # elif method == '<another>':
-           # ...
+        # ...
 
         # other entity_id based methods
         else:
