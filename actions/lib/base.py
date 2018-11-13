@@ -121,7 +121,7 @@ class PdBaseAction(Action):
             If you need to send a payload, it should be a JSON string with the keys and 
             values as defined from the PD API reference. All the examples will have one 
             extra top level key that should be omitted due to differences between the 
-            API and pypd. For example, in Teams/post_teams the payload ('team') 
+            API and pypd. For example in Teams/post_teams the payload ('team') 
             example is
                 {
                   "team": {
