@@ -11,13 +11,9 @@ parameters:
     type: string
   method:
     description: pypd entity method
-    default: fetch
+    default: find
     immutable: true
-    type: string
-  entity_id:
-    description: translates to the 'id' key for a service object in PagerDuty
-    type: string
-    required: true    
+    type: string  
   time_zone:
     description: Time zone in which dates in the result will be rendered.
     type: string

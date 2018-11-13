@@ -1,4 +1,4 @@
-description: "create a contact_method for user by entity_id"
+description: "create a contact_method for user by entity_id  (raw data input)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
@@ -22,23 +22,21 @@ parameters:
     description: A JSON object with the data that should be sent for contact_method creation. See action definition for details (JSONSchema).
     type: object
     required: true
-    items:
-      type: object
-      properties:
-        type:
-          description: The type of contact method
-          type: string
-          required: true
-          enum:
-            - email_contact_method
-            - phone_contact_method
-            - push_notification_contact_method
-            - sms_contact_method
-        label:
-          description: The label (e.g., "Work", "Mobile", etc.).
-          type: string
-          required: true
-        address:
-          description: "The 'address' to deliver to: email, phone number, etc., depending on the type."
-          type: string
-          required: true
+    properties:
+      type:
+        description: The type of contact method
+        type: string
+        required: true
+        enum:
+          - email_contact_method
+          - phone_contact_method
+          - push_notification_contact_method
+          - sms_contact_method
+      label:
+        description: The label (e.g., "Work", "Mobile", etc.).
+        type: string
+        required: true
+      address:
+        description: "The 'address' to deliver to: email, phone number, etc., depending on the type."
+        type: string
+        required: true

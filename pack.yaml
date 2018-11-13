@@ -6,6 +6,6 @@ version: 0.6.0
 author: Ian Price
 email: ianmprice@gmail.com
 contributors:
-  - Ian Price (rewrite author) <ianmprice@gmail.com>
-  - Jon Middleton <jjm@geeky-and-blonde.me.uk>
   - Aamir (original author) <raza.aamir01@gmail.com> 
+  - Jon Middleton <jjm@geeky-and-blonde.me.uk>
+  - Ian Price (rewrite author) <ianmprice@gmail.com>

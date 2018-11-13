@@ -22,18 +22,15 @@ parameters:
     description: A JSON object with the data that should be sent for schedule creation. See action definition for details (JSONSchema).
     type: object
     required: true
-    items:
-      type: object
-      properties:
-        type:
-          type: string
-          default: schedule
-          required: true
-          enum:
-            - schedule 
-            - schedule_reference
+    properties:
+      type:
+        type: string
+        default: schedule
+        required: true
+        enum:
+          - schedule 
+          - schedule_reference
       schedule_layers:
-        description:
         type: array
         required: true
         items:

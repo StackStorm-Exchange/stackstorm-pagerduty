@@ -1,0 +1,44 @@
+description: "create an incident using the v2 REST API (simplified)"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: incident.create.rest_v2.simple
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Incident
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: create
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  title:
+    description: A succinct description of the nature, symptoms, cause, or effect of the incident.
+    type: string
+    required: true
+  service_id:
+    description: The incident will be created on this service.
+    type: string
+    required: true
+  details:
+    description: Details for the incident
+    type: string
+  data:
+    description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
+    type: object
+    immutable: true
+    default: 
+      type: incident
+      title: "{{ title }}"
+      service:
+        id: "{{ service_id }}"
+        type: service_reference
+      body: 
+        type: incident_body
+        details: "{{ details }}"
