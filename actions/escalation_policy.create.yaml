@@ -50,10 +50,6 @@ parameters:
         items:
           type: object
           properties:
-            id:
-              description: escalation_rule id
-              type: string
-              required: true
             escalation_delay_in_minutes:
               description: The number of minutes before an unacknowledged incident escalates away from this rule.
               type: integer
