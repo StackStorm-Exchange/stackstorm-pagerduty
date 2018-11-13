@@ -85,12 +85,14 @@ class PdBaseAction(Action):
         """ Beacuse of inconsistencies with the pypd pack in how it handles data, we 
             must duplicate 'from_email' as 'from' because sometimes it's one or the other.
             It's not great, but we have to send it as both.
-            See Incident.create Vs User.create in pypd
+            See Event.create Vs User.create in pypd
             
             Pagerduty's API literally requires the well known HTTP header field 'From'
             https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
         """
-        kwargs['add_headers'] = ('{"from": "%s"}' % from_email)
+
+        kwargs['add_headers'] = {}
+        kwargs['add_headers']['From'] = from_email
 
         self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(

@@ -68,9 +68,6 @@ parameters:
     description: The duration in minutes within which to automatically group incoming alerts. (0 = Continue grouping until resolved)
     type: integer
     default: 2
-  escalation_policy_id:
-    description: The id of the escalation policy used by this service.
-    type: string
   data:
     description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
     type: object
@@ -85,6 +82,3 @@ parameters:
       alert_creation: "{{ alert_creation }}"
       alert_grouping: "{{ alert_grouping }}"
       alert_grouping_timeout: "{{ alert_grouping_timeout }}"
-      escalation_policy: 
-        id: "{{ escalation_policy_id }}"
-        type: escalation_policy_reference

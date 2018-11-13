@@ -35,10 +35,12 @@ parameters:
     required: true
   time_zone:
     description: The preferred time zone name. If null, the account's time zone will be used.
-    type: string   
+    type: string  
+    default:  America/Los_Angeles
   color:
     description: The color this user will appear as on schedules.
     type: string
+    default: grey20
     enum:
       - purple
       - red
@@ -84,6 +86,17 @@ parameters:
   role:
     description: The user's role (as defined in PagerDuty)
     type: string
+    default: user
+    enum:
+      - read_only_user
+      - owner
+      - admin
+      - user
+      - observer
+      - limited_user
+      - team_responder
+      - restricted_access
+
   description:
     description: The user's bio.
     type: string
@@ -100,6 +113,6 @@ parameters:
       email: "{{ email }}"
       time_zone: "{{ time_zone }}" 
       color: "{{ color }}"
-      role: "{{ role }}"
+      role: "{{ role|default('user', true) }}"
       description: "{{ description }}"
       job_title: "{{ job_title }}"
