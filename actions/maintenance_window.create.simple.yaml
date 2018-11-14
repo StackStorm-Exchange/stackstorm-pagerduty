@@ -43,7 +43,5 @@ parameters:
       end_time: "{{ end_time }}"
       description: "{{ description }}"
       services:
-        type: array
-        items:
-          id: "{{ service_id }}"
+        - id: "{{ service_id }}"
           type: service_reference
