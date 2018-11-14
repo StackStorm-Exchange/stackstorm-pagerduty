@@ -165,9 +165,17 @@ class PdBaseAction(Action):
             self.logger.debug(
                 'Delete operation successful. (response from pypd was None)')
             return json.loads('{"deleted":true}')
-
-        # use pypd method entity.json to return the entity as json
-        return entity_id_method
+        elif isinstance(entity_id_method, list):
+            self.logger.debug(
+                'Operation successful. Converting class list to JSON')
+            found = []
+            for f in entity_id_method:
+                found.append(f.json)
+            return found
+        else:
+            self.logger.debug(
+                'Operation successful. Returning data')
+            return entity_id_method
 
     def check_entity(self, entity=None):
         self.logger.debug('Checking if entity is defined: %s' % entity)
