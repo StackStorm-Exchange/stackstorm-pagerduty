@@ -50,6 +50,10 @@ parameters:
       - critical
       - maintenance
       - disabled
+  escalation_policy_id:
+    description: The ID of the escalation policy for this service
+    type: string
+    required: true
   alert_creation:
     description: Whether a service creates only incidents, or both alerts and incidents.
     type: string
@@ -69,3 +73,6 @@ parameters:
       acknowledgement_timeout: "{{ acknowledgement_timeout }}"
       status: "{{ status }}"
       alert_creation: "{{ alert_creation }}"
+      escalation_policy:
+        id: "{{ escalation_policy_id }}"
+        type: escalation_policy_reference
