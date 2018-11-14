@@ -32,7 +32,19 @@ parameters:
           enum:
             - schedule 
             - schedule_reference
+        time_zone:
+          description: The time zone of the schedule.
+          type: string
+          default: America/Los_Angeles
+          required: true
+        name:
+          description: The name of the schedule
+          type: string
+        description:
+          description: A description for the schedule
+          type: string
         schedule_layers:
+          description: A list of schedule layers.
           type: array
           required: true
           items:
