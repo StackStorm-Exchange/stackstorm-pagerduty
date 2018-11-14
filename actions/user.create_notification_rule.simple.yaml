@@ -11,7 +11,7 @@ parameters:
     type: string
   method:
     description: pypd entity method
-    default: assignment_notification_rule
+    default: create_notification_rule
     immutable: true
     type: string
   entity_id:
