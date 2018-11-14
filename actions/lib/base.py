@@ -169,22 +169,27 @@ class PdBaseAction(Action):
         self.logger.debug('Running pypd {} on {}:{}'.format(method, entity, entity_id))
         entity_id_method = getattr(source, method)(**kwargs)
 
-        # delete methods based on a user id will return null/None when successful.
-        # Add useful output consistent with delete()
+        self.logger.debug('Operation successful. Returning data')
+
         if entity_id_method is None:
+            # delete methods based on a user id will return null/None when successful.
+            # Add useful output consistent with delete()
             self.logger.debug(
                 'Delete operation successful. (response from pypd was None)')
             return json.loads('{"deleted":true}')
+        elif hasattr(entity_id_method, 'json'):
+            return entity_id_method.json
         elif isinstance(entity_id_method, list):
-            self.logger.debug(
-                'Operation successful. Converting class list to JSON')
+            #Someimtes the list needs to be converted to json, sometimes it doesn't, sigh...
+            self.logger.debug('Converting class list to JSON')
             found = []
             for f in entity_id_method:
-                found.append(f.json)
+                if hasattr(f, 'json'):
+                    found.append(f.json)
+                else:
+                    found.append(f)
             return found
         else:
-            self.logger.debug(
-                'Operation successful. Returning data')
             return entity_id_method
 
     def check_entity(self, entity=None):
