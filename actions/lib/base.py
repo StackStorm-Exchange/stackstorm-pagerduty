@@ -76,31 +76,41 @@ class PdBaseAction(Action):
         """ base create() method defined in pypd.entity.create() usable by most entities
         """
         check_inputs = {}  # Placeholder for input checking
-        # We need to know the email of the user making the resource
-        # and that a payload (data) is present
-        check_inputs['from_email'] = from_email
+
+        # We need to attach details as an object (if present) 
+        # and I couldn't find a good way to do it in the action definition.
+        if entity == 'Event' and kwargs.get('details') is not None:
+            payload['details'] = kwargs.get('details')
+        else:
+            # We need to know the email of the user making the resource
+            check_inputs['from_email'] = from_email
+
+        # Make sure none of our inputs are empty
         check_inputs['payload'] = payload
+
         self.check_required(check_inputs)
 
-        """ Beacuse of inconsistencies with the pypd pack in how it handles data, we 
+        """ Beacuse of inconsistencies with the pypd pack in how it handles data, we
             must duplicate 'from_email' as 'from' because sometimes it's one or the other.
             It's not great, but we have to send it as both.
             See Event.create Vs User.create in pypd
-            
+
             Pagerduty's API literally requires the well known HTTP header field 'From'
             https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
         """
-
-        kwargs['add_headers'] = {}
-        kwargs['add_headers']['From'] = from_email
+        kwargs['add_headers'] = {'From':from_email}
 
         self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
             data=payload, from_email=from_email, **kwargs)
 
         self.logger.debug('pypd create() finished')
-        # use pypd method entity.json to return the entity as json
-        return create.json
+
+        if entity == 'Event':
+            return create
+        else:
+            # use pypd method entity.json to return the entity as json
+            return create.json
 
     def entity_id_method(self, entity=None, method=None, entity_id=None, **kwargs):
         """ base method to handle other methods that depend on an `id` for a user
