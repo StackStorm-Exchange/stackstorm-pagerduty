@@ -11,7 +11,7 @@ parameters:
     type: string
   method:
     description: pypd entity method
-    default: create_notification_rule
+    default: assignment_notification_rule
     immutable: true
     type: string
   entity_id:
@@ -27,6 +27,15 @@ parameters:
     description: id of the contact_method to be used
     type: string
     required: true
+  contact_method_type:
+    description: The type of contact method
+    type: string
+    required: true
+    enum: 
+      - email_contact_method
+      - phone_contact_method
+      - push_notification_contact_method
+      - sms_contact_method
   data:
     description: A JSON object with the data that should be sent for notification_rule creation. See action definition for details (JSONSchema).
     type: object
@@ -35,3 +44,4 @@ parameters:
       start_delay_in_minutes: "{{ start_delay_in_minutes }}"
       contact_method:
         id: "{{ contact_method_id }}"
+        type: "{{ contact_method_type }}"
