@@ -20,7 +20,7 @@ parameters:
     required: true
   type:
     type: string
-    default: user
+    default: service
     required: true
     enum:
       - service
