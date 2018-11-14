@@ -12,7 +12,7 @@ parameters:
   method:
     description: pypd entity method
     type: string
-    default: fetch
+    default: nested_fetch
     immutable: true
   entity_id:
     description: translates to the 'id' key for a service object in PagerDuty

@@ -32,7 +32,34 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are fetching.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
+            self.logger.debug(
+                'Extracting entity_id from kwargs: {}'.format(entity_id))
+
+            return (True, self.fetch(
+                entity=entity, entity_id=entity_id, **kwargs))
+
+        elif method == 'nested_fetch':  # HTTP_GET
+            # Since some fetch() methods are customized by pypd we need to handle
+            # them differently sometimes. In this case its a normal fetch, just
+            # against a nested resource. For an example
+            # see PD API refference -
+            # get_services_id_integrations_integration_id
+            self.logger.debug(
+                'Running a fetch() method against a nested resource')
+
+            # override actual method
+            self.logger.debug('Rewritting nested_fetch to fetch for method')
+            method = 'fetch'
+
+            self.logger.debug('Extracting entity_id from kwargs as service: {}'.format(
+                kwargs.get('resource_id', None)))
+            kwargs['service'] = kwargs.pop('entity_id', None)
+
+            # We need to know the id of the resource we are fetching.
+            # Define 'entity_id' in your action
+            entity_id = str(kwargs.pop('resource_id', None))
+            self.logger.debug(
+                'Extracting resource_id from kwargs as integration: {}'.format(entity_id))
 
             return (True, self.fetch(
                 entity=entity, entity_id=entity_id, **kwargs))
@@ -43,7 +70,8 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are deleting.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
+            self.logger.debug(
+                'Extracting entity_id from kwargs: {}'.format(entity_id))
 
             return (True, self.delete(
                 entity=entity, entity_id=entity_id, **kwargs))
@@ -52,7 +80,8 @@ class PdAction(PdBaseAction):
             self.logger.debug('Running a create() method')
 
             from_email = str(kwargs.pop('from_email', None))
-            self.logger.debug('Extracting from_email from kwargs: {}'.format(from_email))
+            self.logger.debug(
+                'Extracting from_email from kwargs: {}'.format(from_email))
 
             # data should be a JSON object with a defined JSONschema in the
             # action to enforce API compliance.
