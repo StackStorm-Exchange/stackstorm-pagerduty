@@ -2,7 +2,7 @@ description: "get integration for service by entity_id"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: integration.fetch
+name: integration.get
 parameters:
   entity:
     description: pypd entity
