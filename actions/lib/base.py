@@ -170,7 +170,7 @@ class PdBaseAction(Action):
         return entity_id_method
 
     def check_entity(self, entity=None):
-        self.logger.debug('Checking if entity is defined')
+        self.logger.debug('Checking if entity is defined: %s' % entity)
         if entity is None:
             self.logger.error(
                 'entity is a required field for all operations and was not found. Exiting...')
@@ -178,7 +178,7 @@ class PdBaseAction(Action):
         return True
 
     def check_method(self, method=None):
-        self.logger.debug('Checking if method is defined')
+        self.logger.debug('Checking if method is defined: %s' % method)
         if method is None:
             self.logger.error(
                 'method is a required field for all operations and was not found. Exiting...')
