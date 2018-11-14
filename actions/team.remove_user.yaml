@@ -1,5 +1,7 @@
+# This is disabled because of a typo in pypd, can be reenabled after
+# https://github.com/PagerDuty/pagerduty-api-python-client/pull/53 is merged
 description: "remove user by id from a team by entity_id"
-enabled: true
+enabled: false
 entry_point: action.py
 runner_type: python-script
 name: team.remove_user
