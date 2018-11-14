@@ -57,17 +57,6 @@ parameters:
     enum:
       - create_incidents
       - create_alerts_and_incidents
-  alert_grouping:
-    description: Defines how alerts on this service will be automatically grouped into incidents.
-    type: string
-    default: time
-    enum:
-      - time
-      - intelligent
-  alert_grouping_timeout:
-    description: The duration in minutes within which to automatically group incoming alerts. (0 = Continue grouping until resolved)
-    type: integer
-    default: 2
   data:
     description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
     type: object
@@ -80,5 +69,3 @@ parameters:
       acknowledgement_timeout: "{{ acknowledgement_timeout }}"
       status: "{{ status }}"
       alert_creation: "{{ alert_creation }}"
-      alert_grouping: "{{ alert_grouping }}"
-      alert_grouping_timeout: "{{ alert_grouping_timeout }}"
