@@ -22,18 +22,20 @@ parameters:
     description: A JSON object with the data that should be sent for notification_rule creation. See action definition for details (JSONSchema).
     type: object
     required: true
-    properties:
-      start_delay_in_minutes:
-        description: The delay before firing the rule, in minutes.
-        default: 0
-        type: integer
-        required: true
-      contact_method:
-        type: object
-        items:
+    items:
+      type: object
+      properties:
+        start_delay_in_minutes:
+          description: The delay before firing the rule, in minutes.
+          default: 0
+          type: integer
+          required: true
+        contact_method:
           type: object
-          properties:
-            id:
-              description: id of the contact_method to be used
-              type: string
-              required: true
+          items:
+            type: object
+            properties:
+              id:
+                description: id of the contact_method to be used
+                type: string
+                required: true
