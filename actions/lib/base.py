@@ -176,7 +176,7 @@ class PdBaseAction(Action):
             # Add useful output consistent with delete()
             self.logger.debug(
                 'Response from pypd was None (success)')
-            return json.loads('{"completed":true}')
+            return json.loads('{"success":true}')
         elif hasattr(entity_id_method, 'json'):
             return entity_id_method.json
         elif isinstance(entity_id_method, list):
