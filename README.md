@@ -51,17 +51,17 @@ acknowledge_incident: Acknowledge an Incident via the REST API
 resolve: Resolve an Incident via the REST API
 * `resolve incident id {{entity_id}} from {{from_email}}`
 
-
-`{{ids}}` is a comma separated list of incident ids, and `{{email}}` is the email address of the
-user acknowledging or resolving the incident. `{{description}}` is the title of the incident.
+ `{{description}}` is the title of the incident.  
+ `{{from_email}}` is the email address of a valid user on your PD account for `acknowledge` or `resolve`  
+ * Reccomended: Create your own Alias/workflow that ties the API (chat) user to this field automatically.
 
 # Running Create actions
 
 All Create actions require a JSON object with the details for the resource being created. 
 A JSON Schema is present on all `create` actions to help enforce requirements and inform structure.
-These schemas match the PagerDuty API 'request schema' documentation.
+These schemas match the PagerDuty API 'request schema' documentation. These are intended to be used by workflows and in programatic ways.
 
-Some create actions also have a similarly named `.simple` version which provides a more form based input of required fields and commonly used optional fields. These will cover many use cases and provide a preformatted version of the non `simple` action.
+Some create actions also have a similarly named `.simple` version which provides a more form based input of required fields and commonly used optional fields. These will cover many use cases and provide a preformatted version of the non `simple` action. These are intended to be used by Action Aliases and Humans
 
 # Rest API Vs Events API
 
@@ -74,4 +74,4 @@ Currently pypd only supports the mode `trigger` (create) on only the Events V1 A
 
 # Creating Incidents
 
-because incidents can be created via both APIs, actions have been included that can be used to create incidents in the way that makes the most sense for you. Read about the differences between these APIs to help influence your decision.
+Because incidents can be created via both APIs, actions have been included that can be used to create incidents in the way that makes the most sense for you. Read about the differences between these APIs to help influence your decision.
