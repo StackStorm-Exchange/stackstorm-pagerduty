@@ -175,8 +175,8 @@ class PdBaseAction(Action):
             # delete methods based on a user id will return null/None when successful.
             # Add useful output consistent with delete()
             self.logger.debug(
-                'Delete operation successful. (response from pypd was None)')
-            return json.loads('{"deleted":true}')
+                'Response from pypd was None (success)')
+            return json.loads('{"completed":true}')
         elif hasattr(entity_id_method, 'json'):
             return entity_id_method.json
         elif isinstance(entity_id_method, list):
