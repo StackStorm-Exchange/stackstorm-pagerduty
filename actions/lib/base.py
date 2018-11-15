@@ -77,7 +77,7 @@ class PdBaseAction(Action):
         """
         check_inputs = {}  # Placeholder for input checking
 
-        # We need to attach details as an object (if present) 
+        # We need to attach details as an object (if present)
         # and I couldn't find a good way to do it in the action definition.
         if entity == 'Event' and kwargs.get('details') is not None:
             payload['details'] = kwargs.get('details')
@@ -98,7 +98,7 @@ class PdBaseAction(Action):
             Pagerduty's API literally requires the well known HTTP header field 'From'
             https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
         """
-        kwargs['add_headers'] = {'From':from_email}
+        kwargs['add_headers'] = {'From': from_email}
 
         self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
@@ -115,23 +115,23 @@ class PdBaseAction(Action):
     def entity_id_method(self, entity=None, method=None, entity_id=None, **kwargs):
         """ base method to handle other methods that depend on an `id` for a user
 
-            Make sure to use the PD API reference to determine if your action 
+            Make sure to use the PD API reference to determine if your action
             needs a `from` (use action parameter `from_email`)
 
             If the method has a secondary id for a resource attached to a parent id
             (user.id vs user.id.notification_rule.id) it can't be sent as the proper name
-            referenced in the API. pypd decided that instead of just accepting `user.id` 
+            referenced in the API. pypd decided that instead of just accepting `user.id`
             and `secondary.id` you must first instantiate `user.id` and then call the method
             as `user.method(secondary.id)`. For this reason secondary id needs to be passed
-            as `resource_id` so that we can rewrite the `resource_id` key to `id` and have 
-            it pass through with kwargs as "id=<value>". This is all obviously less than 
+            as `resource_id` so that we can rewrite the `resource_id` key to `id` and have
+            it pass through with kwargs as "id=<value>". This is all obviously less than
             ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
             to not need pypd and use custom rest client. (maybe the next major version?)
 
-            If you need to send a payload, it should be a JSON string with the keys and 
-            values as defined from the PD API reference. All the examples will have one 
-            extra top level key that should be omitted due to differences between the 
-            API and pypd. For example in Teams/post_teams the payload ('team') 
+            If you need to send a payload, it should be a JSON string with the keys and
+            values as defined from the PD API reference. All the examples will have one
+            extra top level key that should be omitted due to differences between the
+            API and pypd. For example in Teams/post_teams the payload ('team')
             example is
                 {
                   "team": {
@@ -163,10 +163,12 @@ class PdBaseAction(Action):
 
         # We have to create an object to be referenced by the method.
         # This is how pypd is designed to work
-        self.logger.debug('running a fetch() on {}:{}'.format(entity, entity_id))
+        self.logger.debug(
+            'running a fetch() on {}:{}'.format(entity, entity_id))
         source = getattr(self.pd, entity).fetch(id=entity_id)
         # Call the method based on the entity object and pass any kwargs
-        self.logger.debug('Running pypd {} on {}:{}'.format(method, entity, entity_id))
+        self.logger.debug('Running pypd {} on {}:{}'.format(
+            method, entity, entity_id))
         entity_id_method = getattr(source, method)(**kwargs)
 
         self.logger.debug('Operation successful. Returning data')
@@ -180,7 +182,8 @@ class PdBaseAction(Action):
         elif hasattr(entity_id_method, 'json'):
             return entity_id_method.json
         elif isinstance(entity_id_method, list):
-            #Someimtes the list needs to be converted to json, sometimes it doesn't, sigh...
+            # Someimtes the list needs to be converted to json, sometimes it
+            # doesn't, sigh...
             self.logger.debug('Converting class list to JSON')
             found = []
             for f in entity_id_method:
@@ -209,7 +212,7 @@ class PdBaseAction(Action):
         return True
 
     def check_required(self, check=None):
-        """ Evaluate all the keys in the dict 'check' to ensure it exists and 
+        """ Evaluate all the keys in the dict 'check' to ensure it exists and
             if it is None, raise errors, log, and exit.
         """
         self.logger.debug(
