@@ -40,7 +40,7 @@ You can also use dynamic values from the datastore. See the
 
 # ChatOps
 
-The following chatops action aliases are defined:
+The following ChatOps action aliases are defined:
 
 launch_incident: Launch a new Incident via the Events API
 * `create incident {{description}}`
@@ -53,13 +53,13 @@ resolve: Resolve an Incident via the REST API
 
  `{{description}}` is the title of the incident.  
  `{{from_email}}` is the email address of a valid user on your PD account for `acknowledge` or `resolve`  
- * Reccomended: Create your own Alias/workflow that ties the API (chat) user to this field automatically.
+ * Recommended: Create your own Alias/workflow that ties the API (chat) user to this field automatically.
 
 # Running Create actions
 
 All Create actions require a JSON object with the details for the resource being created. 
 A JSON Schema is present on all `create` actions to help enforce requirements and inform structure.
-These schemas match the PagerDuty API 'request schema' documentation. These are intended to be used by workflows and in programatic ways.
+These schemas match the PagerDuty API 'request schema' documentation. These are intended to be used by workflows and in programmatic ways.
 
 Some create actions also have a similarly named `.simple` version which provides a more form based input of required fields and commonly used optional fields. These will cover many use cases and provide a preformatted version of the non `simple` action. These are intended to be used by Action Aliases and Humans
 
@@ -67,7 +67,7 @@ Some create actions also have a similarly named `.simple` version which provides
 
 Pagerduty has two primary types of API; A traditional RESTful API and an Events API.
 
-The Events API was designed sepcifically for handling Incident creation, acknowledgement, and resolution. 
+The Events API was designed specifically for handling Incident creation, acknowledgment, and resolution. 
 Read more about the Events API [here.](https://v2.developer.pagerduty.com/docs/events-api)
 
 Currently pypd only supports the mode `trigger` (create) on only the Events V1 API. Once pypd is updated to support the Events V2 API, corresponding actions can be updated.

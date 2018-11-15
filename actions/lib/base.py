@@ -1,5 +1,5 @@
-import pypd
 import json
+import pypd
 
 from st2common.runners.base_action import Action
 
@@ -40,8 +40,8 @@ class PdBaseAction(Action):
         """ base find() method defined in pypd.entity.find() usable by all entities
         """
         if 'maximum' not in kwargs:
-            # if maximum was ommited from the action, or didn't have a default,
-            # make sure we don't have a rediculously large response
+            # if maximum was omitted from the action, or didn't have a default,
+            # make sure we don't have a ridiculously large response
             kwargs['maximum'] = 25
             self.logger.debug(
                 'No maximum set for find(). Setting "maximum=25 to limit response size')
@@ -90,7 +90,7 @@ class PdBaseAction(Action):
 
         self.check_required(check_inputs)
 
-        """ Beacuse of inconsistencies with the pypd pack in how it handles data, we
+        """ Because of inconsistencies with the pypd pack in how it handles data, we
             must duplicate 'from_email' as 'from' because sometimes it's one or the other.
             It's not great, but we have to send it as both.
             See Event.create Vs User.create in pypd
@@ -125,7 +125,7 @@ class PdBaseAction(Action):
             as `user.method(secondary.id)`. For this reason secondary id needs to be passed
             as `resource_id` so that we can rewrite the `resource_id` key to `id` and have
             it pass through with kwargs as "id=<value>". This is all obviously less than
-            ideal, but at this point requres a pypd rewrite, or this pack to be rewritten
+            ideal, but at this point requires a pypd rewrite, or this pack to be rewritten
             to not need pypd and use custom rest client. (maybe the next major version?)
 
             If you need to send a payload, it should be a JSON string with the keys and
@@ -182,7 +182,7 @@ class PdBaseAction(Action):
         elif hasattr(entity_id_method, 'json'):
             return entity_id_method.json
         elif isinstance(entity_id_method, list):
-            # Someimtes the list needs to be converted to json, sometimes it
+            # Sometimes the list needs to be converted to json, sometimes it
             # doesn't, sigh...
             self.logger.debug('Converting class list to JSON')
             found = []

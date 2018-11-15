@@ -42,7 +42,7 @@ class PdAction(PdBaseAction):
             # Since some fetch() methods are customized by pypd we need to handle
             # them differently sometimes. In this case its a normal fetch, just
             # against a nested resource. For an example
-            # see PD API refference -
+            # see PD API reference -
             # get_services_id_integrations_integration_id
             self.logger.debug(
                 'Running a fetch() method against a nested resource')
@@ -91,9 +91,9 @@ class PdAction(PdBaseAction):
             return (True, self.create(
                 entity=entity, from_email=from_email, payload=data, **kwargs))
 
-        # If there ends up being a spcific method that needs some special handling
+        # If there ends up being a specific method that needs some special handling
         # you can either add another `elif` condition here. You COULD create a
-        # seperate `specfic_action.py` that instantiates PdBaseAction() directly,
+        # separate `specfic_action.py` that instantiates PdBaseAction() directly,
         # but it's preferable for consistency to keep direct action logic here.
 
         # elif method == '<another>':
