@@ -1,0 +1,118 @@
+description: "create a user (simplified)"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: user.create.simple
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: User
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: create
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  type:
+    type: string
+    default: user
+    required: true
+    enum:
+      - user
+      - user_reference
+  name:
+    description: The name of the user.
+    type: string
+    required: true
+  email:
+    description: The user's email address.
+    type: string
+    required: true
+  time_zone:
+    description: The preferred time zone name. If null, the account's time zone will be used.
+    type: string  
+    default:  America/Los_Angeles
+  color:
+    description: The color this user will appear as on schedules.
+    type: string
+    default: grey20
+    enum:
+      - purple
+      - red
+      - green
+      - blue
+      - teal
+      - orange
+      - brown
+      - turquoise
+      - dark-slate-blue
+      - cayenne
+      - orange-red
+      - dark-orchid
+      - dark-slate-grey
+      - lime
+      - dark-magenta
+      - lime-green
+      - midnight-blue
+      - deep-pink
+      - dark-green
+      - dark-orange
+      - dark-cyan
+      - darkolive-green
+      - dark-slate-gray
+      - grey20
+      - firebrick
+      - maroon
+      - crimson
+      - dark-red
+      - dark-goldenrod
+      - chocolate
+      - medium-violet-red
+      - sea-green
+      - olivedrab
+      - forest-green
+      - dark-olive-green
+      - blue-violet
+      - royal-blue
+      - indigo
+      - slate-blue
+      - saddle-brown
+      - steel-blue
+  role:
+    description: The user's role (as defined in PagerDuty)
+    type: string
+    default: user
+    enum:
+      - read_only_user
+      - owner
+      - admin
+      - user
+      - observer
+      - limited_user
+      - team_responder
+      - restricted_access
+
+  description:
+    description: The user's bio.
+    type: string
+  job_title:
+    description: The user's displayed Job Title
+    type: string
+  data:
+    description: Full formatting of data the way it needs to be interpreted based on the JSONSchema for the API
+    type: object
+    immutable: true
+    default:
+      type: "{{ type }}"
+      name: "{{ name }}"
+      email: "{{ email }}"
+      time_zone: "{{ time_zone }}" 
+      color: "{{ color }}"
+      role: "{{ role|default('user', true) }}"
+      description: "{{ description }}"
+      job_title: "{{ job_title }}"

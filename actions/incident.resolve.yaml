@@ -21,4 +21,4 @@ parameters:
   entity_id:
     description: translates to the 'id' key for an incident object in PagerDuty
     type: string
-    required: true    
+    required: true

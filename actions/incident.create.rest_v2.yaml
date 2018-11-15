@@ -1,8 +1,8 @@
-description: "create an incident"
+description: "create an incident using the v2 REST API (raw data input)"
 enabled: true
 entry_point: action.py
 runner_type: python-script
-name: incident.create
+name: incident.create.rest_v2
 parameters:
   entity:
     description: pypd entity
@@ -58,6 +58,7 @@ parameters:
               type:
                 description: the type of the service
                 type: string
+                default: service_reference
                 required: true
                 enum:
                   - service 
@@ -87,6 +88,7 @@ parameters:
             properties:
               type: 
                 type: string
+                default: incident_body
                 enum:
                   - incident_body
               details:

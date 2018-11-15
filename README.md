@@ -1,55 +1,19 @@
 # PagerDuty
 
-#Pending rewrite
-
-This action enables the integration of PagerDuty into StackStorm. It is capable of performing the following actions:
-
-1. List all the open incidents on PD (for a given api key)
-
-```
-st2 run pagerduty.get_open_incidents
-```
-
-2. Launch an incident by giving its details and description
-
-```
-st2 run pagerduty.launch_incident description='<incident title>'
-```
-
-3. Send acknowledgment of any incident(s)
-
-```
-st2 run pagerduty.ack_incident email='<email>' ids=<comma separated list of incident ids>
-```
-
-4. Resolve acknowledged incident(s)
-
-```
-st2 run pagerduty.resolve_incident email='<email>' ids=<comma separated list of incident ids>
-```
-
-5. User Management can be carried out by the following actions
-
-```
-st2 run pagerduty.list_users
-st2 run pagerduty.create_user email='<email>'
-st2 run pagerduty.delete_user email='<email>' name='Bob' role='user' job_title='Bob'
-```
+This pack enables the integration of PagerDuty into StackStorm. 
 
 # Configuration
 
 To create and install the config file, you can run:
 
-```
-st2 pack config pagerduty
-```
+`st2 pack config pagerduty`
 
 Alternatively, you can copy the example configuration in
 [pagerduty.yaml.example](./pagerduty.yaml.example)
 to `/opt/stackstorm/configs/pagerduty.yaml` and edit as required.
 
 * `api_key:` API-KEY
-* `service_key:` SERVICE-KEY
+* `service_key:` SERVICE-KEY (Used as default for incident creation via the Events API)
 * `debug:` optional debug flag. Set to True for additional logging
 
 You can also use dynamic values from the datastore. See the
@@ -78,10 +42,36 @@ You can also use dynamic values from the datastore. See the
 
 The following chatops action aliases are defined:
 
-* `get open incidents`
+launch_incident: Launch a new Incident via the Events API
 * `create incident {{description}}`
-* `ack incident ids {{ids}} with {{email}}`
-* `resolve incident ids {{ids}} with {{email}}`
+get_open_incidents: Find incidents by Status (Default is effectively 'open incidents')
+* `get open incidents {{statuses=[triggered,acknowledged]}}`
+acknowledge_incident: Acknowledge an Incident via the REST API
+* `ack incident id {{entity_id}} from {{from_email}}`
+resolve: Resolve an Incident via the REST API
+* `resolve incident id {{entity_id}} from {{from_email}}`
+
 
 `{{ids}}` is a comma separated list of incident ids, and `{{email}}` is the email address of the
 user acknowledging or resolving the incident. `{{description}}` is the title of the incident.
+
+# Running Create actions
+
+All Create actions require a JSON object with the details for the resource being created. 
+A JSON Schema is present on all `create` actions to help enforce requirements and inform structure.
+These schemas match the PagerDuty API 'request schema' documentation.
+
+Some create actions also have a similarly named `.simple` version which provides a more form based input of required fields and commonly used optional fields. These will cover many use cases and provide a preformatted version of the non `simple` action.
+
+# Rest API Vs Events API
+
+Pagerduty has two primary types of API; A traditional RESTful API and an Events API.
+
+The Events API was designed sepcifically for handling Incident creation, acknowledgement, and resolution. 
+Read more about the Events API [here.](https://v2.developer.pagerduty.com/docs/events-api)
+
+Currently pypd only supports the mode `trigger` (create) on only the Events V1 API. Once pypd is updated to support the Events V2 API, corresponding actions can be updated.
+
+# Creating Incidents
+
+because incidents can be created via both APIs, actions have been included that can be used to create incidents in the way that makes the most sense for you. Read about the differences between these APIs to help influence your decision.

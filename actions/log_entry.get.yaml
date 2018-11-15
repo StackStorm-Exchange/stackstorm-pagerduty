@@ -14,6 +14,10 @@ parameters:
     type: string
     default: fetch
     immutable: true
+  entity_id:
+    description: translates to the 'id' key for a log_entry object in PagerDuty
+    type: string
+    required: true
   include:
     description: Array of additional details to include.
     type: array
