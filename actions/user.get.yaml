@@ -1,0 +1,20 @@
+description: "get user by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: user.get
+parameters:
+  entity:
+    description: pypd entity
+    default: User
+    immutable: true
+    type: string
+  method:
+    description: pypd entity method
+    default: fetch
+    immutable: true
+    type: string
+  entity_id:
+    description: translates to the 'id' key for a user object in PagerDuty
+    type: string
+    required: true

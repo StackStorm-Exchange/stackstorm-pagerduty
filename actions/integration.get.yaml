@@ -1,0 +1,27 @@
+description: "get integration for service by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: integration.get
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Integration
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: nested_fetch
+    immutable: true
+  entity_id:
+    description: translates to the 'id' key for a service object in PagerDuty
+    type: string
+    required: true
+  resource_id:
+    description: The integration ID on the service.
+    type: string
+    required: true
+  include:
+    description: Array of additional details to include.
+    type: array

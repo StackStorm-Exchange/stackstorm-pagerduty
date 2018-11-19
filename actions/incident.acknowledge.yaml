@@ -1,0 +1,24 @@
+description: "acknowledge an incident by entity_id using the v2 REST API"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: incident.acknowledge
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Incident
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: acknowledge
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  entity_id:
+    description: translates to the 'id' key for an incident object in PagerDuty
+    type: string
+    required: true    

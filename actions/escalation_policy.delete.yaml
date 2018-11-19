@@ -1,0 +1,20 @@
+description: "delete an escalation_policy by id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: escalation_policy.delete
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: EscalationPolicy
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: delete
+    immutable: true
+  entity_id:
+    description: translates to the 'id' key for an escalation_policy object in PagerDuty
+    type: string
+    required: true

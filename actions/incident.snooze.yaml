@@ -1,0 +1,29 @@
+description: "snooze an incident by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: incident.snooze
+parameters:
+  entity:
+    description: pypd entity
+    type: string
+    default: Incident
+    immutable: true
+  method:
+    description: pypd entity method
+    type: string
+    default: snooze
+    immutable: true
+  from_email:
+    description: The email address of a valid user associated with the account making the request.
+    type: string
+    required: true
+  entity_id:
+    description: translates to the 'id' key for an incident object in PagerDuty
+    type: string
+    required: true  
+  duration:
+    description: The number of seconds to snooze the incident for. After this number of seconds has elapsed, the incident will return to the "triggered" state
+    type: integer
+    required: true
+    default: 900

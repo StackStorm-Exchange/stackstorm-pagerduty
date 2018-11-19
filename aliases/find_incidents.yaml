@@ -1,0 +1,18 @@
+---
+name: "find_incidents"
+pack: "pagerduty"
+action_ref: "pagerduty.incident.find"
+description: "Return a list of open PagerDuty incidents"
+formats:
+  - "get open incidents {{statuses=[triggered,acknowledged]}}"
+ack:
+  enabled: false
+result:
+  format: |
+    {% if execution.status == "succeeded" %}
+      {% for item in execution.result.result %}
+    {{ item.id }} is '{{ item.status }}': Title '{{ item.title }}'
+      {% endfor %}
+    {% else %}
+      {% if execution.result.stderr %}*Stderr:* ```{{ execution.result.stderr }}```{% endif %}
+    {% endif %}

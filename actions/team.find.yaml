@@ -1,0 +1,23 @@
+description: "find teams by criteria"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: team.find
+parameters:
+  entity:
+    description: pypd entity
+    default: Team
+    immutable: true
+    type: string
+  method:
+    description: pypd entity method
+    default: find
+    immutable: true
+    type: string
+  maximum:
+    description: limit number of entries potentially returned
+    default: 25
+    type: integer
+  query:
+    description: a substring search of the 'name' and 'email' field
+    type: string

@@ -1,0 +1,20 @@
+description: "delete service by entity_id"
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: service.delete
+parameters:
+  entity:
+    description: pypd entity
+    default: Service
+    immutable: true
+    type: string
+  method:
+    description: pypd entity method
+    default: delete
+    immutable: true
+    type: string
+  entity_id:
+    description: translates to the 'id' key for a service object in PagerDuty
+    type: string
+    required: true    
