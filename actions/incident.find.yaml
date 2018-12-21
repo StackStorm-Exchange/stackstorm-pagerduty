@@ -33,8 +33,8 @@ parameters:
     description: Return only incidents with the given statuses. 
     type: array
   incident_key:
-    description: Returns only the incidents associated with the passed service(s).
-    type: array 
+    description: Returns only the incident associated with this incident_key.
+    type: string 
   user_ids:
     description: Returns only the incidents currently assigned to the passed user(s)
     type: array
