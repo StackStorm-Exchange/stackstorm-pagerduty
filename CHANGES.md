@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.01
+## 1.0.1
 
 - Bumped version to > 1.0.0 to fix deployment tagging issue. No code changes from 0.6.2
 
