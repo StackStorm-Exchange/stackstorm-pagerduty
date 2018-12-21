@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.01
+
+- Bumped version to > 1.0.0 to fix deployment tagging issue. No code changes from 0.6.2
+
 ## 0.6.2
 
 - Corrected issue: #18 incidents.find 'incident_key' wrong data type
