@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.6.2
+
+- Corrected issue: #18 incidents.find 'incident_key' wrong data type
+
 ## 0.6.0
 
 - Complete pack redesign (*No backwards compatibility*)
