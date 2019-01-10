@@ -3,6 +3,9 @@ ref: pagerduty
 name: pagerduty
 description: Packs which allows integration with PagerDuty services.
 version: 1.0.1
+python_versions:
+  - "2"
+  - "3"
 author: Ian Price
 email: ianmprice@gmail.com
 contributors:
