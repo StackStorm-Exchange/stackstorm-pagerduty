@@ -1,3 +1,4 @@
+import six
 import json
 import pypd
 
@@ -222,7 +223,7 @@ class PdBaseAction(Action):
                 'Required fields missing (None received); check_required()')
             exit(1)
 
-        for k, v in check.iteritems():
+        for k, v in six.iteritems(check):
             if v is None:
                 self.logger.error(
                     '{} is a required field; check_required()'.format(k))
