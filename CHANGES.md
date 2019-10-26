@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.3
+- Update PagerDuty Logo following re-branding.
+
 ## 1.0.2
 - Issue support python3 #21.
   - File: actions/lib/base.py
