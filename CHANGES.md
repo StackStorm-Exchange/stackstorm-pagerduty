@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.0
+
+* Drop Python 2.7 support
+
 ## 1.0.2
 - Issue support python3 #21.
   - File: actions/lib/base.py
