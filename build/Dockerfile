@@ -1,4 +1,4 @@
-FROM blinkops/blink-stackstorm-base:1.0-add-default-action-param-value.5 AS plugin
+FROM blinkops/blink-stackstorm-base:1.0-add-default-action-param-value.6 AS plugin
 
 ENV PACK_NAME=pagerduty
 
