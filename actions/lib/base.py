@@ -35,11 +35,7 @@ class PdBaseAction(Action):
         fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
         self.logger.debug('pypd find() finished')
         # use pypd method entity.json to return the entity as json
-        json_result = fetch.json
-        self.logger.debug("json res: %s" % json_result)
-        self.logger.debug("json loads: %s" % json.loads(json_result))
-        result = json.loads(json_result).get("result", {})
-        return result
+        return fetch.json.get("result", {})
 
     def find(self, entity=None, **kwargs):
         """ base find() method defined in pypd.entity.find() usable by all entities
@@ -56,9 +52,7 @@ class PdBaseAction(Action):
         self.logger.debug('pypd find() finished')
         found = []
         for f in find:
-            json_result = f.json
-            result = json.loads(json_result).get("result", {})
-            found.append(result)
+            found.append(f.json.get("result", {}))
 
         # use pypd method entity.json to return the entity as json
         return found
