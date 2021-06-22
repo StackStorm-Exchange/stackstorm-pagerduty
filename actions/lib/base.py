@@ -35,7 +35,11 @@ class PdBaseAction(Action):
         fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
         self.logger.debug('pypd find() finished')
         # use pypd method entity.json to return the entity as json
-        return fetch.json
+        json_result = fetch.json
+        self.logger.debug("json res: %s" % json_result)
+        self.logger.debug("json loads: %s" % json.loads(json_result))
+        result = json.loads(json_result).get("result", {})
+        return result
 
     def find(self, entity=None, **kwargs):
         """ base find() method defined in pypd.entity.find() usable by all entities
