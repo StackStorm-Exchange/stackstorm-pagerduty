@@ -56,7 +56,9 @@ class PdBaseAction(Action):
         self.logger.debug('pypd find() finished')
         found = []
         for f in find:
-            found.append(f.json)
+            json_result = f.json
+            result = json.loads(json_result).get("result", {})
+            found.append(result)
 
         # use pypd method entity.json to return the entity as json
         return found
