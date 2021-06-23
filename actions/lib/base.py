@@ -13,13 +13,13 @@ class PdBaseAction(Action):
         """ init method, run at class creation
         """
         super(PdBaseAction, self).__init__(config)
-        self.logger.debug('Instantiating PdBaseAction()')
+        # self.logger.debug('Instantiating PdBaseAction()')
         self.pd = self._init_client()
 
     def _init_client(self):
         """ init_client method, run at class creation
         """
-        self.logger.debug('Initializing pypd client')
+        # self.logger.debug('Initializing pypd client')
         pypd.api_key = self.config['api_key']
         pypd.service_key = self.config['service_key']
         return pypd
@@ -31,9 +31,9 @@ class PdBaseAction(Action):
         check_inputs['entity_id'] = entity_id
         self.check_required(check_inputs)
 
-        self.logger.debug('Running pypd fetch() for entity {}'.format(entity))
+        # self.logger.debug('Running pypd fetch() for entity {}'.format(entity))
         fetch = getattr(self.pd, entity).fetch(id=entity_id, **kwargs)
-        self.logger.debug('pypd find() finished')
+        # self.logger.debug('pypd find() finished')
         # use pypd method entity.json to return the entity as json
         return fetch.json.get("result", {})
 
@@ -47,9 +47,9 @@ class PdBaseAction(Action):
             self.logger.debug(
                 'No maximum set for find(). Setting "maximum=25 to limit response size')
 
-        self.logger.debug('Running pypd find() for entity {}'.format(entity))
+        # self.logger.debug('Running pypd find() for entity {}'.format(entity))
         find = getattr(self.pd, entity).find(**kwargs)
-        self.logger.debug('pypd find() finished')
+        # self.logger.debug('pypd find() finished')
         found = []
         for f in find:
             found.append(f.json.get("result", {}))
@@ -101,11 +101,11 @@ class PdBaseAction(Action):
         """
         kwargs['add_headers'] = {'From': from_email}
 
-        self.logger.debug('Running pypd create() for entity {}'.format(entity))
+        # self.logger.debug('Running pypd create() for entity {}'.format(entity))
         create = getattr(self.pd, entity).create(
             data=payload, from_email=from_email, **kwargs)
 
-        self.logger.debug('pypd create() finished')
+        # self.logger.debug('pypd create() finished')
 
         if entity == 'Event':
             return create
@@ -164,28 +164,25 @@ class PdBaseAction(Action):
 
         # We have to create an object to be referenced by the method.
         # This is how pypd is designed to work
-        self.logger.debug(
-            'running a fetch() on {}:{}'.format(entity, entity_id))
+        # self.logger.debug('running a fetch() on {}:{}'.format(entity, entity_id))
         source = getattr(self.pd, entity).fetch(id=entity_id)
         # Call the method based on the entity object and pass any kwargs
-        self.logger.debug('Running pypd {} on {}:{}'.format(
-            method, entity, entity_id))
+        # self.logger.debug('Running pypd {} on {}:{}'.format(method, entity, entity_id))
         entity_id_method = getattr(source, method)(**kwargs)
 
-        self.logger.debug('Operation successful. Returning data')
+        # self.logger.debug('Operation successful. Returning data')
 
         if entity_id_method is None:
             # delete methods based on a user id will return null/None when successful.
             # Add useful output consistent with delete()
-            self.logger.debug(
-                'Response from pypd was None (success)')
+            # self.logger.debug('Response from pypd was None (success)')
             return json.loads('{"success":true}')
         elif hasattr(entity_id_method, 'json'):
             return entity_id_method.json
         elif isinstance(entity_id_method, list):
             # Sometimes the list needs to be converted to json, sometimes it
             # doesn't, sigh...
-            self.logger.debug('Converting class list to JSON')
+            # self.logger.debug('Converting class list to JSON')
             found = []
             for f in entity_id_method:
                 if hasattr(f, 'json'):
@@ -197,18 +194,16 @@ class PdBaseAction(Action):
             return entity_id_method
 
     def check_entity(self, entity=None):
-        self.logger.debug('Checking if entity is defined: %s' % entity)
+        # self.logger.debug('Checking if entity is defined: %s' % entity)
         if entity is None:
-            self.logger.error(
-                'entity is a required field for all operations and was not found. Exiting...')
+            self.logger.error('entity is a required field for all operations and was not found. Exiting...')
             exit(1)
         return True
 
     def check_method(self, method=None):
-        self.logger.debug('Checking if method is defined: %s' % method)
+        # self.logger.debug('Checking if method is defined: %s' % method)
         if method is None:
-            self.logger.error(
-                'method is a required field for all operations and was not found. Exiting...')
+            self.logger.error('method is a required field for all operations and was not found. Exiting...')
             exit(1)
         return True
 
@@ -216,16 +211,13 @@ class PdBaseAction(Action):
         """ Evaluate all the keys in the dict 'check' to ensure it exists and
             if it is None, raise errors, log, and exit.
         """
-        self.logger.debug(
-            'running check_required(); inputs: {}'.format(check))
+        # self.logger.debug('running check_required(); inputs: {}'.format(check))
         if check is None:
-            self.logger.error(
-                'Required fields missing (None received); check_required()')
+            self.logger.error('Required fields missing (None received); check_required()')
             exit(1)
 
         for k, v in six.iteritems(check):
             if v is None:
-                self.logger.error(
-                    '{} is a required field; check_required()'.format(k))
+                self.logger.error('{} is a required field; check_required()'.format(k))
                 exit(1)
         return True

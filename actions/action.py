@@ -22,7 +22,7 @@ class PdAction(PdBaseAction):
 
         # Well known pypd methods in pypd.entity
         if method == 'find':  # HTTP_GET
-            self.logger.debug('Running a find() method')
+            # self.logger.debug('Running a find() method')
 
             return (True, self.find(entity=entity, **kwargs))
 
@@ -32,8 +32,7 @@ class PdAction(PdBaseAction):
             # We need to know the id of the resource we are fetching.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug(
-                'Extracting entity_id from kwargs: {}'.format(entity_id))
+            # self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
 
             return (True, self.fetch(
                 entity=entity, entity_id=entity_id, **kwargs))
@@ -44,52 +43,46 @@ class PdAction(PdBaseAction):
             # against a nested resource. For an example
             # see PD API reference -
             # get_services_id_integrations_integration_id
-            self.logger.debug(
-                'Running a fetch() method against a nested resource')
+            # self.logger.debug('Running a fetch() method against a nested resource')
 
             # override actual method
-            self.logger.debug('Rewritting nested_fetch to fetch for method')
+            # self.logger.debug('Rewritting nested_fetch to fetch for method')
             method = 'fetch'
 
-            self.logger.debug('Extracting entity_id from kwargs as service: {}'.format(
-                kwargs.get('resource_id', None)))
+            # self.logger.debug('Extracting entity_id from kwargs as service: {}'.format(kwargs.get('resource_id', None)))
             kwargs['service'] = kwargs.pop('entity_id', None)
 
             # We need to know the id of the resource we are fetching.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('resource_id', None))
-            self.logger.debug(
-                'Extracting resource_id from kwargs as integration: {}'.format(entity_id))
+            # self.logger.debug('Extracting resource_id from kwargs as integration: {}'.format(entity_id))
 
             return (True, self.fetch(
                 entity=entity, entity_id=entity_id, **kwargs))
 
         elif method == 'delete':  # HTTP_DELETE
-            self.logger.debug('Running a delete() method')
+            # self.logger.debug('Running a delete() method')
 
             # We need to know the id of the resource we are deleting.
             # Define 'entity_id' in your action
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug(
-                'Extracting entity_id from kwargs: {}'.format(entity_id))
+            # self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
 
             return (True, self.delete(
                 entity=entity, entity_id=entity_id, **kwargs))
 
         elif method == 'create':  # HTTP_POST
-            self.logger.debug('Running a create() method')
+            # self.logger.debug('Running a create() method')
 
             from_email = str(kwargs.pop('from_email', None))
-            self.logger.debug(
-                'Extracting from_email from kwargs: {}'.format(from_email))
+            # self.logger.debug('Extracting from_email from kwargs: {}'.format(from_email))
 
             # data should be a JSON object with a defined JSONschema in the
             # action to enforce API compliance.
             data = kwargs.pop('data', None)
-            self.logger.debug('Extracting data from kwargs: {}'.format(data))
+            # self.logger.debug('Extracting data from kwargs: {}'.format(data))
 
-            return (True, self.create(
-                entity=entity, from_email=from_email, payload=data, **kwargs))
+            return (True, self.create(entity=entity, from_email=from_email, payload=data, **kwargs))
 
         # If there ends up being a specific method that needs some special handling
         # you can either add another `elif` condition here. You COULD create a
@@ -101,12 +94,10 @@ class PdAction(PdBaseAction):
 
         # other entity_id based methods
         else:
-            self.logger.debug('Running an entity_id specific method')
+            # self.logger.debug('Running an entity_id specific method')
 
             # We need to know the entity_id of the resource to interact with
             entity_id = str(kwargs.pop('entity_id', None))
-            self.logger.debug(
-                'Extracting entity_id from kwargs: {}'.format(entity_id))
+            # self.logger.debug('Extracting entity_id from kwargs: {}'.format(entity_id))
 
-            return (True, self.entity_id_method(
-                entity=entity, method=method, entity_id=entity_id, **kwargs))
+            return (True, self.entity_id_method(entity=entity, method=method, entity_id=entity_id, **kwargs))
