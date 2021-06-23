@@ -21,9 +21,3 @@ connection_types:
       required: true
       placeholder: "PagerDuty Service Key"
       input_type: "text"
-    debug:
-      name: "debug"
-      field_type: "input"
-      required: false
-      placeholder: "Additional logging"
-      input_type: "checkbox"
