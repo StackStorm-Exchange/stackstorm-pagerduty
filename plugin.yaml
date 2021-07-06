@@ -9,15 +9,16 @@ provider: "pagerduty"
 
 connection_types:
   pagerduty:
-    api_key:
-      name: "api_key"
-      field_type: "input"
-      required: true
-      placeholder: "PagerDuty API Key"
-      input_type: "password"
-    service_key:
-      name: "service_key"
-      field_type: "input"
-      required: true
-      placeholder: "PagerDuty Service Key"
-      input_type: "text"
+    fields:
+      api_key:
+        name: "api_key"
+        field_type: "input"
+        required: true
+        placeholder: "PagerDuty API Key"
+        input_type: "password"
+      service_key:
+        name: "service_key"
+        field_type: "input"
+        required: true
+        placeholder: "PagerDuty Service Key"
+        input_type: "text"
