@@ -1,8 +1,20 @@
-FROM blinkops/blink-stackstorm-base:1.0.26 AS plugin
+FROM golang:1.16.3 AS builder
 
-ENV PACK_NAME=pagerduty
+WORKDIR /go/src/github.com/blinkops/blink-pagerduty
+COPY .. .
 
-COPY plugin.yaml config.yaml config.schema.yaml requirements.txt ./
-COPY actions/ actions/
+RUN go build -tags netgo -ldflags '-w -extldflags "-static"' -o /go/bin/blink-pagerduty ./cmd/main
 
-RUN pip install -r requirements.txt
+FROM alpine:3.14.0 AS plugin
+
+WORKDIR /blink-pagerduty
+COPY --from=builder /go/bin/blink-pagerduty .
+COPY --from=builder /go/src/github.com/blinkops/blink-pagerduty/pagerduty-openapi.yaml .
+COPY --from=builder /go/src/github.com/blinkops/blink-pagerduty/mask.yaml .
+
+# Expose the gRPC port
+EXPOSE 1337
+
+RUN chmod a+x blink-pagerduty
+
+ENTRYPOINT ./blink-pagerduty
