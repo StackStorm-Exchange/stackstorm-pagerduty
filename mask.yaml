@@ -1,1 +1,170 @@
 actions:
+  # incidents
+  listIncidents:
+    alias: ListIncidents
+    parameters:
+
+  updateIncidents:
+    alias: UpdateMultipleIncidents
+    parameters:
+
+  createIncident:
+    alias: CreateIncident
+    parameters:
+      incident.service:
+        alias: "service"
+      incident.status:
+        alias: "status"
+      incident.title:
+        alias: "Title"
+      incident.priority:
+        alias: "Priority"
+
+  getIncident:
+    alias: GetIncident
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  updateIncident:
+    alias: UpdateIncident
+    parameters:
+      id:
+        alias: "Incident ID"
+      type:
+        alias: "Incident type"
+      status:
+        alias: "status"
+      title:
+        alias: "Title"
+      priority:
+        alias: "Priority"
+      assignments:
+        alias: "Assignments"
+      urgency:
+        alias: "Urgency"
+
+  listIncidentAlerts:
+    alias: ListAlerts
+    parameters:
+      id:
+        alias: "Incident ID"
+      alert_key:
+        alias: "Alert key"
+      statuses[]:
+        alias: "Status codes"
+      sort_by:
+        alias: "Sort by"
+
+
+  updateIncidentAlerts:
+    alias: UpdateMultipleAlerts
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  getIncidentAlert:
+    alias: GetAlert
+    parameters:
+      id:
+        alias: "Incident ID"
+      alert_id:
+        alias: "Alert ID"
+
+  updateIncidentAlert:
+    alias: UpdateAlert
+    parameters:
+      id:
+        alias: "Incident ID"
+      alert_id:
+        alias: "Alert ID"
+
+  listIncidentLogEntries:
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  listIncidentNotes:
+    alias: ListIncidentNotes
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  createIncidentNote:
+    alias: CreateIncidentNote
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  getOutlierIncident:
+    alias: GetOutlierIncident
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  getPastIncidents:
+    alias: GetPastIncidents
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  getRelatedIncidents:
+    alias: GetRelatedIncidents
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  createIncidentSnooze:
+    alias: SnoozeIncident
+    parameters:
+      id:
+        alias: "Incident ID"
+
+  createIncidentStatusUpdate:
+    parameters:
+      id:
+        alias: "Incident ID"
+
+
+  getIncidentNotificationSubscribers:
+    alias: ListSubscribers
+    parameters:
+      id:
+        alias: "Incident ID"
+
+
+  removeIncidentNotificationSubscribers:
+    alias: UnsubscribeFromIncident
+    parameters:
+      id:
+        alias: "Incident ID"
+      subscribers:
+        alias: "Subscribers"
+
+  # logs
+  listLogEntries:
+    parameters:
+      id:
+        alias: "Incident ID"
+      since:
+        alias: "Since"
+      until:
+        alias: "Until"
+      team_ids[]:
+        alias: "Team IDs"
+      time_zone:
+        alias: "Timezone"
+      is_overview:
+        alias: "Is overview"
+      include[]:
+        alias: "Include"
+
+
+  getLogEntry:
+    parameters:
+      id:
+        alias: "Incident ID"
+      time_zone:
+        alias: "Timezone"
+      include[]:
+        alias: "Include"
