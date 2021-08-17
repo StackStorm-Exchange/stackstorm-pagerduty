@@ -1,4 +1,8 @@
 actions:
+  listServices:
+    alias: ListServices
+    parameters:
+
   # incidents
   listIncidents:
     alias: ListIncidents
