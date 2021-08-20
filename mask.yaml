@@ -84,6 +84,7 @@ actions:
         alias: "Alert ID"
 
   listIncidentLogEntries:
+    alias: ListIncidentLogEntries
     parameters:
       id:
         alias: "Incident ID"
@@ -125,6 +126,7 @@ actions:
         alias: "Incident ID"
 
   createIncidentStatusUpdate:
+    alias: CreateStatusUpdate
     parameters:
       id:
         alias: "Incident ID"
@@ -147,6 +149,7 @@ actions:
 
   # logs
   listLogEntries:
+    alias: ListLogEntries
     parameters:
       id:
         alias: "Incident ID"
@@ -165,6 +168,7 @@ actions:
 
 
   getLogEntry:
+    alias: GetLogEntry
     parameters:
       id:
         alias: "Incident ID"

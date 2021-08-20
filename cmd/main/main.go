@@ -78,8 +78,8 @@ func AuthTest(ctx *plugin.ActionContext) (bool,[]byte) {
 
 }
 
-func Validate(json map[string]interface{})(bool, []byte){
-	m := json["error"]
+func Validate(json openapi_sdk.JSONMap)(bool, []byte){
+	m := json.(map[string]interface{})["error"]
 
 	if m != nil {
 		m := m.(map[string]interface{})
