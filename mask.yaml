@@ -1,9 +1,5 @@
 actions:
-  listServices:
-    alias: ListServices
-    parameters:
-
-  # incidents
+  #incidents
   listIncidents:
     alias: ListIncidents
     parameters:
@@ -176,3 +172,47 @@ actions:
         alias: "Timezone"
       include[]:
         alias: "Include"
+
+  listServices:
+    alias: ListServices
+    parameters:
+      query:
+        alias: "Query"
+      limit:
+        alias: "Limit"
+      total:
+        alias: "Total"
+      offset:
+        alias: "Offset"
+      team_ids[]:
+        alias: "Team IDs"
+      time_zone:
+        alias: "Timezone"
+      sort_by:
+        alias: "Sort by"
+      include[]:
+        alias: "Include"
+
+  createService:
+    alias: CreateService
+    parameters:
+      service.name:
+        alias: "Name"
+      service.description:
+        alias: "Description"
+      service.escalation_policy.type:
+        alias: "Escalation policy type"
+      service.escalation_policy.id:
+        alias: "Escalation policy ID"
+
+  deleteService:
+    alias: DeleteService
+    parameters:
+      id:
+        alias: "ID"
+
+  listEscalationPolicies:
+    alias: ListEscalationPolicies
+    parameters:
+
+

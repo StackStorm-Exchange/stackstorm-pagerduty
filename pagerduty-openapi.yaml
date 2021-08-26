@@ -4572,8 +4572,7 @@ components:
           properties:
             type:
               type: string
-              enum:
-                - escalation_policy_reference
+              default: escalation_policy_reference
     EscalationPolicy:
       allOf:
         - $ref: '#/components/schemas/Tag/allOf/0'
