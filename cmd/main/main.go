@@ -15,7 +15,7 @@ const (
 )
 
 var prefixes = openapi_sdk.HeaderValuePrefixes{"AUTHORIZATION": "Token token="}
-var headerAlias = openapi_sdk.HeaderAlias{"API ACCESS KEY": "AUTHORIZATION"}
+var headerAlias = openapi_sdk.HeaderAlias{"API_KEY": "AUTHORIZATION"}
 
 func main() {
 	connectionTypes := map[string]connections.Connection{
