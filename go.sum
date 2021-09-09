@@ -6,8 +6,13 @@ github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310/go.mod h1:ufUuZ+zHj
 github.com/aws/aws-sdk-go v1.25.37/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
+<<<<<<< HEAD
 github.com/blinkops/blink-openapi-sdk v1.0.51 h1:9m+H4AACzSvBLJ8n42JHxEhn+785nPz+uiV11zIyBl4=
 github.com/blinkops/blink-openapi-sdk v1.0.51/go.mod h1:9QBgwKabAla/xfjT64dHymc9E6D4jAWwmHACBhhsqH0=
+=======
+github.com/blinkops/blink-openapi-sdk v1.0.50 h1:ukDth0V0PRmQaYNfGCI/lOABMu9refCpB10aOZaVYLs=
+github.com/blinkops/blink-openapi-sdk v1.0.50/go.mod h1:9QBgwKabAla/xfjT64dHymc9E6D4jAWwmHACBhhsqH0=
+>>>>>>> c71f8c9c6a9b037789fb64653cd793ff50ee36a4
 github.com/blinkops/blink-sdk v1.0.51 h1:0cUKo/vzXPMChXxohvLKpxuMZae4/IOWI/AXN5Dg8Og=
 github.com/blinkops/blink-sdk v1.0.51/go.mod h1:yS6YUgzCNihkLPfyZnznAmo1jjIP93hPDuVpKhpYGZw=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
