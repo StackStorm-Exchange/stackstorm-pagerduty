@@ -57,7 +57,6 @@ func main() {
 	}
 
 	err = plugin_sdk.Start(pagerdutyPlugin)
-
 	if err != nil {
 		log.Error("Failed to start pagerduty integration: ", err)
 		panic(err)
