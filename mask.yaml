@@ -13,119 +13,147 @@ actions:
     parameters:
       incident.service:
         alias: "service"
+        index: 1
       incident.status:
         alias: "status"
+        index: 2
       incident.title:
         alias: "Title"
+        index: 3
       incident.priority:
         alias: "Priority"
+        index: 4
 
   getIncident:
     alias: GetIncident
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   updateIncident:
     alias: UpdateIncident
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       type:
         alias: "Incident type"
+        index: 2
       status:
         alias: "status"
+        index: 3
       title:
         alias: "Title"
+        index: 4
       priority:
         alias: "Priority"
+        index: 5
       assignments:
         alias: "Assignments"
+        index: 6
       urgency:
         alias: "Urgency"
+        index: 7
 
   listIncidentAlerts:
     alias: ListAlerts
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       alert_key:
         alias: "Alert key"
+        index: 2
       statuses[]:
         alias: "Status codes"
+        index: 3
       sort_by:
         alias: "Sort by"
-
+        index: 4
 
   updateIncidentAlerts:
     alias: UpdateMultipleAlerts
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   getIncidentAlert:
     alias: GetAlert
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       alert_id:
         alias: "Alert ID"
+        index: 2
 
   updateIncidentAlert:
     alias: UpdateAlert
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       alert_id:
         alias: "Alert ID"
+        index: 2
 
   listIncidentLogEntries:
     alias: ListIncidentLogEntries
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   listIncidentNotes:
     alias: ListIncidentNotes
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   createIncidentNote:
     alias: CreateIncidentNote
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   getOutlierIncident:
     alias: GetOutlierIncident
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   getPastIncidents:
     alias: GetPastIncidents
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   getRelatedIncidents:
     alias: GetRelatedIncidents
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   createIncidentSnooze:
     alias: SnoozeIncident
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
   createIncidentStatusUpdate:
     alias: CreateStatusUpdate
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
 
   getIncidentNotificationSubscribers:
@@ -133,6 +161,7 @@ actions:
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
 
 
   removeIncidentNotificationSubscribers:
@@ -140,8 +169,10 @@ actions:
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       subscribers:
         alias: "Subscribers"
+        index: 2
 
   # logs
   listLogEntries:
@@ -149,18 +180,28 @@ actions:
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       since:
         alias: "Since"
+        index: 2
+        type: date-time
       until:
         alias: "Until"
+        index: 3
+        type: date-time
       team_ids[]:
         alias: "Team IDs"
+        index: 4
       time_zone:
         alias: "Timezone"
+        index: 5
+        # type: timezone
       is_overview:
         alias: "Is overview"
+        index: 6
       include[]:
         alias: "Include"
+        index: 7
 
 
   getLogEntry:
@@ -168,51 +209,67 @@ actions:
     parameters:
       id:
         alias: "Incident ID"
+        index: 1
       time_zone:
         alias: "Timezone"
+        index: 2
+        # type: timezone
       include[]:
         alias: "Include"
+        index: 3
 
   listServices:
     alias: ListServices
     parameters:
       query:
         alias: "Query"
+        index: 1
       limit:
         alias: "Limit"
+        index: 2
       total:
         alias: "Total"
+        index: 3
       offset:
         alias: "Offset"
+        index: 4
       team_ids[]:
         alias: "Team IDs"
+        index: 5
       time_zone:
         alias: "Timezone"
+        index: 6
+        # type: timezone
       sort_by:
         alias: "Sort by"
+        index: 7
       include[]:
         alias: "Include"
+        index: 8
 
   createService:
     alias: CreateService
     parameters:
       service.name:
         alias: "Name"
+        index: 1
       service.description:
         alias: "Description"
+        index: 2
       service.escalation_policy.type:
         alias: "Escalation policy type"
+        index: 3
       service.escalation_policy.id:
         alias: "Escalation policy ID"
+        index: 4
 
   deleteService:
     alias: DeleteService
     parameters:
       id:
         alias: "ID"
+        index: 1
 
   listEscalationPolicies:
     alias: ListEscalationPolicies
     parameters:
-
-
